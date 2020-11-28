@@ -1,0 +1,30 @@
+@tailwind base;
+
+@layer base {
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+}
+
+a {
+  @apply text-blue-700;
+}
+
+a:hover {
+  @apply underline;
+}
+
+.navbar a {
+  @apply text-gray-700;
+}
+
+.navbar a:hover {
+  @apply no-underline text-gray-900;
+}
+
+@tailwind components;
+
+@tailwind utilities;
