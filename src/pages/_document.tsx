@@ -8,7 +8,14 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: 'window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}',
+            }}
+          />
+        </Head>
+
         <body>
           <Main />
           <NextScript />
