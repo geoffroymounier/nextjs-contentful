@@ -1,11 +1,14 @@
 import React from 'react';
-import Content from '../content/Content'
-import Navbar from '../navigation/Navbar';
+
+import dynamic from 'next/dynamic';
+
+const Content = dynamic(() => import('../content/Content'));
+const Navbar = dynamic(() => import('../navigation/Navbar'));
 
 enum Blocks {
   CONTENT = 'content',
   TEXT_ENRICHED = 'textEnriched',
-  MENU = 'menu'
+  MENU = 'menu',
 }
 
 const validBlocks = {
@@ -13,16 +16,14 @@ const validBlocks = {
   [Blocks.MENU]: Navbar,
 };
 
-const PageContent = ({ blocks }) => {
-  return blocks.map((block,id) => {
-    const type = block.type
-    if (validBlocks[type]) {
-      const Component = validBlocks[type]
-      return <Component key={id} {...block}/>
-    }
-    return null
-  })
-
-}
+const PageContent = ({ blocks }) => blocks.map((block, id: number) => {
+  const { type } = block;
+  if (validBlocks[type]) {
+    const Component = validBlocks[type];
+    // eslint-disable-next-line max-len
+    return <Component key={id.toString()} {...block} />; // eslint-disable-line react/jsx-props-no-spreading
+  }
+  return null;
+});
 
 export default React.memo(PageContent);
