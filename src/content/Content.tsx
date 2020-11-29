@@ -38,4 +38,4 @@ function Content({items,classes,style}:ContentProps) {
   </div>
 )};
 
-export default  Content;
+export default  React.memo(Content);

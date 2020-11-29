@@ -1,11 +1,11 @@
-import React, { ReactNode } from 'react';
-import { Navbar } from '../navigation/Navbar';
+import React from 'react';
+import Navbar from '../navigation/Navbar';
 import PageContent from '../layout/PageContent';
 
 type IMainProps = {
-  meta: ReactNode;
-  banner?:ReactNode;
-  children: ReactNode;
+  meta: React.ReactNode;
+  banner?:React.ReactNode;
+  children: React.ReactNode;
   header:any
 };
 
@@ -35,4 +35,4 @@ const Main = (props: IMainProps) => (
   </div>
 );
 
-export { Main };
+export default Main;

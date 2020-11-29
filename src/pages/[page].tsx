@@ -3,7 +3,7 @@ import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import {EntryCollection} from 'contentful'
 import { Meta } from '../layout/Meta';
-import { Main } from '../templates/Main';
+import Main from '../templates/Main';
 import ContentfulService from '../utils/Content';
 import PageContent from '../layout/PageContent';
 import { Config } from '../utils/Config';

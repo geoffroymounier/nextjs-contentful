@@ -1,6 +1,6 @@
 import React from 'react';
 import Content from '../content/Content'
-import {Navbar} from '../navigation/Navbar';
+import Navbar from '../navigation/Navbar';
 
 enum Blocks {
   CONTENT = 'content',

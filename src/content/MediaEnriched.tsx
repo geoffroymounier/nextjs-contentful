@@ -7,4 +7,4 @@ const MediaEnriched = ({ media, classes, style }) => {
   return <img alt={title} className={classes} src={url} style={style} />
 }
 
-export default MediaEnriched;
+export default React.memo(MediaEnriched);
