@@ -67,4 +67,5 @@ const Navbar = (props: any) => {
   )
 };
 
-export { Navbar };
+export {MenuItem}
+export default React.memo(Navbar);

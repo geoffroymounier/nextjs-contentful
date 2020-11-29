@@ -64,4 +64,4 @@ function TextEnriched({value,tag,classes,style,content}) {
   
 }
 
-export default TextEnriched;
+export default React.memo(TextEnriched);

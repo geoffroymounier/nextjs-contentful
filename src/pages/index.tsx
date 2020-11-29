@@ -1,19 +1,19 @@
 import React from 'react';
 import { EntryCollection } from 'contentful';
-import { GetStaticProps } from 'next';
-
-import { Meta } from '../layout/Meta';
-import PageContent from '../layout/PageContent';
-import { Main } from '../templates/Main';
-import { Config } from '../utils/Config';
 import ContentfulService from '../utils/Content';
 import {parseData} from '../utils/Parser';
+import { GetStaticProps } from 'next';
+
+import { Config } from '../utils/Config';
+import { Meta } from '../layout/Meta';
+import PageContent from '../layout/PageContent';
+import Main from '../templates/Main';
 
 export type PageProps = {
   page: EntryCollection<any>;
 };
-
 const contentful = new ContentfulService();
+
 const Index = (props: any) => (
   <Main
     header={props.page.header}

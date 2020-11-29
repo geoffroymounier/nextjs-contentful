@@ -10,4 +10,4 @@ const Button = ({ linkType, label, href, classes, style }) => {
   
 }
 
-export default Button;
+export default React.memo(Button);
