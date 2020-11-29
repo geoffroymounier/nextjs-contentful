@@ -9,7 +9,6 @@ import { Meta } from '../layout/Meta';
 import PageContent from '../layout/PageContent';
 import Main from '../templates/Main';
 
-
 export type PageProps = {
   page: EntryCollection<any>;
 };
