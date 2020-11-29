@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import MediaEnriched from './MediaEnriched';

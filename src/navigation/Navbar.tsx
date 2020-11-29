@@ -1,13 +1,11 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Button from '../content/Button'
 import classnames from 'classnames';
-type INavbarProps = {
-  children: ReactNode;
-};
+
 
 const MenuContext = React.createContext({
   openMenu: '',
-  changeOpenMenu: (e: string) => { }
+  changeOpenMenu: (e) => { return e}
 })
 
 function MenuItem(props) {
@@ -55,7 +53,7 @@ function MenuItem(props) {
 
 }
 
-const Navbar = (props: INavbarProps) => {
+const Navbar = (props: any) => {
   const [openMenu, setOpenMenu] = React.useState<string>('')
 
   const changeOpenMenu = (e: string) => setOpenMenu(e)

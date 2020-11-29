@@ -25,4 +25,4 @@ const PageContent = ({ blocks }) => {
 
 }
 
-export default PageContent;
+export default React.memo(PageContent);

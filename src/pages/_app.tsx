@@ -2,6 +2,7 @@ import React from 'react';
 
 import { AppProps } from 'next/app';
 
+import 'tailwindcss/dist/tailwind.css';
 import '../styles/main.css';
 
 

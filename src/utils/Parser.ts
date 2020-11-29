@@ -3,7 +3,7 @@ function unNestJson (item, json) {
   if (!item) return {}
   if (!!item.nodeType) return item
 
-  Object.keys(item).map((key, i) => {
+  Object.keys(item).map((key) => {
     
     if (key === 'fields' && item['sys'].contentType) {
       json = { ...json, ...unNestJson(item[key], {}), type: item.sys.contentType.sys.id}
@@ -21,11 +21,10 @@ function unNestJson (item, json) {
 }
 function unNestArray (item, json) {
   if (!item) return []
-  Object.keys(item).map((key, i) => {
+  Object.keys(item).map((key) => {
     if (key === 'fields') { // is a 'field' type
       json = [...json, { ...unNestJson(item[key], {}) }]
     } else if (typeof item[key] === 'object' && Array.isArray(item[key])) {
-      const type = item['sys'] && item['sys'].contentType ? item.sys.contentType.sys.id : key
       const data = unNestJson(item[key], {})
       json = ([
         ...json,
