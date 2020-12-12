@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 
 const TextEnriched = dynamic(() => import('./TextEnriched'));
 const MediaEnriched = dynamic(() => import('./MediaEnriched'));
+const Buttons = dynamic(()=> import('./Buttons'));
 
 type ContentProps = {
   items: any[];
@@ -15,14 +16,14 @@ enum Items {
   CONTENT = 'content',
   TEXT_ENRICHED = 'textEnriched',
   MEDIA_ENRICHED = 'mediaEnriched',
-  BUTTONS = 'buttons',
+  BUTTON = 'buttons',
 }
 
 const validItems = {
   [Items.CONTENT]: Content, // eslint-disable-line @typescript-eslint/no-use-before-define
   [Items.TEXT_ENRICHED]: TextEnriched,
   [Items.MEDIA_ENRICHED]: MediaEnriched,
-  [Items.BUTTONS]: TextEnriched,
+  [Items.BUTTON]: Buttons,
 };
 
 function Content({ items, classes, style }: ContentProps) {

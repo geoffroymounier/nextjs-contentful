@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 type ButtonProps = {
   href: string;
@@ -6,22 +7,28 @@ type ButtonProps = {
   linkType: 'a' | 'button';
   classes?: string;
   style?: any;
+  styled?: string;
 };
 
+const LinkWrapper = styled.div`${props => props.styled}`
+const ButtonWrapper = styled.button`${props => props.styled}`
+
 const Button: React.FC<ButtonProps> = ({
-  linkType, label, href, classes, style,
+  linkType, label, href, classes, style, styled
 }) => {
   if (linkType === 'a') {
     return (
-      <a href={href} className={classes} style={style}>
-        {label}
-      </a>
+      <LinkWrapper className={classes} styled={styled} onClick={() => window.location.href = (href)}>
+        <a href={href} >
+          {label}
+        </a>
+      </LinkWrapper>
     );
   }
   return (
-    <button type="button" onClick={() => {}} className={classes} style={style}>
+    <ButtonWrapper type="button" onClick={() => {}} className={classes} styled={style}>
       {label}
-    </button>
+    </ButtonWrapper>
   );
 };
 

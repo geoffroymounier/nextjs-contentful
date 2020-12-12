@@ -202,7 +202,7 @@ const fieldsProperties = {
     {
       id: 'style',
       name: 'Additional Style',
-      type: 'Object',
+      type: 'Text',
       required: false
     },
   ],
@@ -217,27 +217,28 @@ const fieldsProperties = {
       id: 'alternative',
       name: 'Alternative Media',
       type: 'Symbol',
-      required: false
+      required: false,
     },
     {
       id: 'media',
       name: 'Media',
       type: 'Link',
       required: false,
-      linkType: "Asset"
+      linkType: "Asset",
     },
     {
       id: 'classes',
       name: 'Additional Classes',
       type: 'Symbol',
-      required: false
+      required: false,
     },
     {
       id: 'style',
       name: 'Additional Style',
-      type: 'Object',
+      type: 'Text',
       required: false
     },
+
   ],
   buttons : [
     {
@@ -314,7 +315,7 @@ const fieldsProperties = {
     {
       id: 'style',
       name: 'Additional Style',
-      type: 'Object',
+      type: 'Text',
       required: false
     },
   ],
@@ -336,6 +337,12 @@ const fieldsProperties = {
       name: 'Pages Included',
       type: 'Symbol',
       required: true
+    },
+    {
+      id: 'transition',
+      name: 'Let menu disappear',
+      type: 'Number',
+      required: false
     },
     {
       id: 'mobile',
@@ -364,9 +371,9 @@ const fieldsProperties = {
       required: false
     },
     {
-      id: 'style',
+      id: 'styled',
       name: 'Additional Style',
-      type: 'Object',
+      type: 'Text',
       required: false
     },
   ],
@@ -484,7 +491,9 @@ const fieldsProperties = {
         const options = {...fieldProp}
         delete options.id;
         const indexField = fields.findIndex(({id}) => id === fieldProp.id)  
-        if  (indexField > -1) {
+        if (options.deleted) {
+          content.deleteField(fieldProp.id)
+        } else if  (indexField > -1) {
           // already exists
           content.editField(fields[indexField].id, options)
         } else {

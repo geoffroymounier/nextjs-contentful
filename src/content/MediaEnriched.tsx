@@ -1,5 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
 
+const WrappedImg = styled.img`${props => props.styled}`
 type MediaEnrichedProps = {
   media: {
     file: {
@@ -16,7 +18,7 @@ const MediaEnriched: React.FC<MediaEnrichedProps> = ({ media, classes, style }) 
     file: { url },
     title,
   } = media;
-  return <img alt={title} className={classes} src={`${url}?fm=jpg&fl=progressive`} style={style} />;
+  return <WrappedImg alt={title} className={classes} src={`${url}?fm=jpg&fl=progressive`} styled={style} />;
 };
 
 export default React.memo(MediaEnriched);
