@@ -1,7 +1,7 @@
 import React from 'react';
 import { ServerStyleSheet } from 'styled-components'
 import Document, {
-  Html, Main, NextScript,
+  Html, Head, Main, NextScript,
 } from 'next/document';
 
 class MyDocument extends Document {
@@ -35,6 +35,9 @@ class MyDocument extends Document {
 
     return (
       <Html lang="en">
+        <Head>
+        </Head>
+
         <body>
           <Main />
           <NextScript />
