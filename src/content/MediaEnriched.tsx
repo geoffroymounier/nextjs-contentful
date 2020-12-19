@@ -28,6 +28,7 @@ type MediaEnrichedProps = {
   };
   classes?: string;
   style?: any;
+  isBackground?:boolean;
 };
 
 const MediaEnriched: React.FC<MediaEnrichedProps> = ({ media, tablet, mobile,isBackground, classes, style }) => {
@@ -45,10 +46,12 @@ const MediaEnriched: React.FC<MediaEnrichedProps> = ({ media, tablet, mobile,isB
       window.addEventListener('resize', handleResize)
       handleResize({ target: { innerWidth: getWidth() } })
       return () => window.removeEventListener('resize', handleResize)
+    } else {
+      return () => {}
     }
   }, [])
 
-  return (
+  return (<LazyLoad>
     <picture >
       <source
         media="(min-width: 1440px)"
@@ -68,6 +71,7 @@ const MediaEnriched: React.FC<MediaEnrichedProps> = ({ media, tablet, mobile,isB
         src={`${mobile?.file?.url || tablet?.file?.url || media.file.url}?fm=jpg&fl=progressive&w=600`}
       />
     </picture>
+    </LazyLoad>
   )
 };
 

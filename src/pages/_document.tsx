@@ -1,7 +1,7 @@
 import React from 'react';
 import { ServerStyleSheet } from 'styled-components'
 import Document, {
-  Html, Head, Main, NextScript,
+  Html, Main, NextScript,
 } from 'next/document';
 
 class MyDocument extends Document {
@@ -31,16 +31,10 @@ class MyDocument extends Document {
     }
   }
   render() {
+
+
     return (
       <Html lang="en">
-        <Head>
-          {/* {process.env.NODE_ENV === 'development' ? <script
-            dangerouslySetInnerHTML={{
-              __html: 'window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}',
-            }}
-          /> : null} */}
-        </Head>
-
         <body>
           <Main />
           <NextScript />

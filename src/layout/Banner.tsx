@@ -20,9 +20,9 @@ const Banner = ({ items, classes, duration, style, transitionStyle }) => {
   const onBlur = () => (manualChange.current = false)
 
 
-  const manualCarouselMove = index => {
-    setId({ transitionClassName, itemNumber: index })
-  }
+  // const manualCarouselMove = index => {
+  //   setId({ transitionClassName, itemNumber: index })
+  // }
   useInterval(() => {
     if (manualChange.current === true) {
       return
@@ -83,17 +83,19 @@ const Banner = ({ items, classes, duration, style, transitionStyle }) => {
   )
 }
 const useInterval = (callback, delay) => {
-  const savedCallback = useRef();
+  const savedCallback = useRef<() => void>();
   useEffect(() => {
     savedCallback.current = callback;
   }, [callback]);
   useEffect(() => {
     function tick() {
-      savedCallback.current();
+      if (savedCallback.current) savedCallback.current();
     }
     if (delay !== null) {
       let id = setInterval(tick, delay);
       return () => clearInterval(id);
+    } else {
+      return () => {};
     }
   }, [delay]);
 }
