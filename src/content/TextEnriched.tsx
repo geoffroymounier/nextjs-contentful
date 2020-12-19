@@ -3,6 +3,10 @@ import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import MediaEnriched from './MediaEnriched';
 import {unNestJson} from '../utils/Parser'
+import styled from 'styled-components'
+
+const WrappedDiv = styled.div`${props => props.styled}`
+
 enum Items {
   TEXT_ENRICHED = 'textEnriched',
   MEDIA_ENRICHED = 'mediaEnriched',
@@ -60,7 +64,7 @@ function TextEnriched({value,tag,classes,style,content}) {
     const Tag = tagList[tag];
     return <Tag className={classes} style={style}>{value}</Tag>
   }
-  return <div className={classes} style={style}>{documentToReactComponents(content,options)}</div>;
+  return <WrappedDiv className={classes} styled={style}>{documentToReactComponents(content,options)}</WrappedDiv>;
   
 }
 

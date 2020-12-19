@@ -4,35 +4,57 @@ import PageContent from '../layout/PageContent';
 
 type IMainProps = {
   meta: React.ReactNode;
-  banner?:React.ReactNode;
+  banner?: React.ReactNode;
   children: React.ReactNode;
-  header:any
+  header: any
 };
 
-const Main = (props: IMainProps) => (
-  <div className="antialiased w-full text-gray-700">
-    {props.meta}
+const Main = (props: IMainProps) => {
+  const [{ sticky, offset },setSticky] = React.useState({ sticky: false, offset: 0 })
+  const menuHeight = React.useRef<HTMLDivElement>()
+  React.useEffect(()=>{
+    const handleScroll = (elTopOffset, elHeight) => {
 
-    <div className="max-w-screen-md mx-auto">
-      <div>
-        {props.banner && <PageContent blocks={[props.banner]} />}
+      if (window?.pageYOffset > (elTopOffset + elHeight )) {
+        setSticky({ sticky: true, offset: elHeight });
+      } else {
+        setSticky({ sticky: false, offset: 0 });
+      }
+    };
+    const header = menuHeight.current
 
-        
-          <Navbar {...props.header}/>
-        
-      </div>
+    const handleScrollEvent = () => {
+      
+      handleScroll(header.offsetTop, header.clientHeight)
+    }
 
-      {props.children}
+    window.addEventListener('scroll', handleScrollEvent);
+    return () => {
+      window.removeEventListener('scroll', handleScrollEvent);
+    };
+  },[menuHeight.current,setSticky])
+  return (
+    <div className="antialiased w-full text-gray-700">
+      {props.meta}
 
-      <div className="border-t border-gray-300 text-center py-8">
-        Made with
+      <div style={{marginTop:offset}}>
+        <div>
+          {props.banner && <PageContent blocks={[props.banner]} />}
+          <Navbar ref={menuHeight} {...props.header} sticky={sticky} />
+
+        </div>
+
+        {props.children}
+
+        <div className="border-t border-gray-300 text-center py-8">
+          Made with
         {' '}
-        <span role="img" aria-label="Love">
-          ♥
+          <span role="img" aria-label="Love">
+            ♥
         </span>
+        </div>
       </div>
     </div>
-  </div>
-);
-
+  );
+}
 export default Main;

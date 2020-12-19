@@ -33,7 +33,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async () => {
   const pages = await contentful.fetchPages('index');
   const parsedPage = parseData(pages)[0]
 
-
+  
   return {
     props: { 
       page: parsedPage

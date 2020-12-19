@@ -28,12 +28,22 @@ const fieldsProperties = {
               "textEnriched",
               "mediaEnriched",
               "RichText",
-              "content"
+              "content",
             ]
           }
         ],
         linkType: "Entry"
       },
+      required: false
+    },
+    {
+      id: 'background',
+      name: 'Background',
+      type: 'Link',
+      linkType:'Entry',
+      validations : [{
+        linkContentType : ['mediaEnriched']
+      }],
       required: false
     },
     {
@@ -43,9 +53,9 @@ const fieldsProperties = {
       required: false
     },
     {
-      id: 'style',
+      id: 'styled',
       name: 'Additional Style',
-      type: 'Object',
+      type: 'Text',
       required: false
     },
   ],
@@ -116,6 +126,7 @@ const fieldsProperties = {
           {
             linkContentType: [
               "content",
+              "banner"
             ]
           }
         ],
@@ -133,6 +144,56 @@ const fieldsProperties = {
       id: 'style',
       name: 'Additional Style',
       type: 'Object',
+      required: false
+    },
+  ],
+  banner : [
+    {
+      id: 'name',
+      name: 'Name',
+      type: 'Symbol',
+      required: true
+    },
+    {
+      id: 'items',
+      name: 'Items',
+      type: 'Array',
+      items: {
+        type: "Link",
+        validations: [
+          {
+            linkContentType: [
+              "mediaEnriched",
+              "content",
+            ]
+          }
+        ],
+        linkType: "Entry"
+      },
+      required: true
+    },
+    {
+      id: 'duration',
+      name: 'Duration',
+      type: 'Number',
+      required: false
+    },
+    {
+      id: 'classes',
+      name: 'Additional Classes',
+      type: 'Symbol',
+      required: false
+    },
+    {
+      id: 'transitionStyle',
+      name: 'Transition Style',
+      type: 'Text',
+      required: false
+    },
+    {
+      id: 'style',
+      name: 'Additional Style',
+      type: 'Text',
       required: false
     },
   ],
@@ -202,7 +263,7 @@ const fieldsProperties = {
     {
       id: 'style',
       name: 'Additional Style',
-      type: 'Object',
+      type: 'Text',
       required: false
     },
   ],
@@ -217,27 +278,42 @@ const fieldsProperties = {
       id: 'alternative',
       name: 'Alternative Media',
       type: 'Symbol',
-      required: false
+      required: false,
     },
     {
       id: 'media',
       name: 'Media',
       type: 'Link',
       required: false,
-      linkType: "Asset"
+      linkType: "Asset",
+    },
+    {
+      id: 'tablet',
+      name: 'Tablet - Media',
+      type: 'Link',
+      required: false,
+      linkType: "Asset",
+    },
+    {
+      id: 'mobile',
+      name: 'Mobile - Media',
+      type: 'Link',
+      required: false,
+      linkType: "Asset",
     },
     {
       id: 'classes',
       name: 'Additional Classes',
       type: 'Symbol',
-      required: false
+      required: false,
     },
     {
       id: 'style',
       name: 'Additional Style',
-      type: 'Object',
+      type: 'Text',
       required: false
     },
+
   ],
   buttons : [
     {
@@ -290,6 +366,16 @@ const fieldsProperties = {
       required: false
     },
     {
+      id: 'media',
+      name: 'Media',
+      type: 'Link',
+      linkType:'Entry',
+      validations : [{
+        linkContentType : ['mediaEnriched']
+      }],
+      required: false
+    },
+    {
       id: 'linkType',
       name: 'Type of Link',
       type: 'Symbol',
@@ -314,7 +400,7 @@ const fieldsProperties = {
     {
       id: 'style',
       name: 'Additional Style',
-      type: 'Object',
+      type: 'Text',
       required: false
     },
   ],
@@ -336,6 +422,12 @@ const fieldsProperties = {
       name: 'Pages Included',
       type: 'Symbol',
       required: true
+    },
+    {
+      id: 'transition',
+      name: 'Let menu disappear',
+      type: 'Number',
+      required: false
     },
     {
       id: 'mobile',
@@ -364,9 +456,9 @@ const fieldsProperties = {
       required: false
     },
     {
-      id: 'style',
+      id: 'styled',
       name: 'Additional Style',
-      type: 'Object',
+      type: 'Text',
       required: false
     },
   ],
@@ -389,7 +481,7 @@ const fieldsProperties = {
       type: 'Link',
       linkType:'Entry',
       validations : [{
-        linkContentType : ['buttonField']
+        linkContentType : ['buttonField'],
       }],
       required: false
     },
@@ -431,7 +523,7 @@ const fieldsProperties = {
     {
       id: 'itemStyle',
       name: 'Item Wrapper Style',
-      type: 'Object',
+      type: 'Text',
       required: false
     },
     {
@@ -443,7 +535,7 @@ const fieldsProperties = {
     {
       id: 'style',
       name: 'Additional Style',
-      type: 'Object',
+      type: 'Text',
       required: false
     },
   ]
@@ -484,7 +576,9 @@ const fieldsProperties = {
         const options = {...fieldProp}
         delete options.id;
         const indexField = fields.findIndex(({id}) => id === fieldProp.id)  
-        if  (indexField > -1) {
+        if (options.deleted) {
+          content.deleteField(fieldProp.id)
+        } else if  (indexField > -1) {
           // already exists
           content.editField(fields[indexField].id, options)
         } else {

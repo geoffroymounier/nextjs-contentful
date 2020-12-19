@@ -1,27 +1,36 @@
 import React from 'react';
+import styled from 'styled-components';
+import MediaEnriched from './MediaEnriched';
 
 type ButtonProps = {
   href: string;
   label: string;
+  media?: any;
   linkType: 'a' | 'button';
   classes?: string;
   style?: any;
+  styled?: string;
 };
 
+const LinkWrapper = styled.div`${props => props.styled}`
+const ButtonWrapper = styled.button`${props => props.styled}`
+
 const Button: React.FC<ButtonProps> = ({
-  linkType, label, href, classes, style,
+  linkType, label, media, href, classes, style
 }) => {
   if (linkType === 'a') {
     return (
-      <a href={href} className={classes} style={style}>
-        {label}
-      </a>
+      <LinkWrapper className={classes} styled={style} onClick={() => window.location.href = (href)}>
+        <a href={href} >
+          {media ? <MediaEnriched {...media}/> : label}
+        </a>
+      </LinkWrapper>
     );
   }
   return (
-    <button type="button" onClick={() => {}} className={classes} style={style}>
-      {label}
-    </button>
+    <ButtonWrapper type="button" onClick={() => {}} className={classes} styled={style}>
+      {media ? <MediaEnriched {...media}/> : label}
+    </ButtonWrapper>
   );
 };
 
