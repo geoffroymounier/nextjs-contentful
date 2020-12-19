@@ -28,12 +28,22 @@ const fieldsProperties = {
               "textEnriched",
               "mediaEnriched",
               "RichText",
-              "content"
+              "content",
             ]
           }
         ],
         linkType: "Entry"
       },
+      required: false
+    },
+    {
+      id: 'background',
+      name: 'Background',
+      type: 'Link',
+      linkType:'Entry',
+      validations : [{
+        linkContentType : ['mediaEnriched']
+      }],
       required: false
     },
     {
@@ -43,9 +53,9 @@ const fieldsProperties = {
       required: false
     },
     {
-      id: 'style',
+      id: 'styled',
       name: 'Additional Style',
-      type: 'Object',
+      type: 'Text',
       required: false
     },
   ],
@@ -116,6 +126,7 @@ const fieldsProperties = {
           {
             linkContentType: [
               "content",
+              "banner"
             ]
           }
         ],
@@ -133,6 +144,56 @@ const fieldsProperties = {
       id: 'style',
       name: 'Additional Style',
       type: 'Object',
+      required: false
+    },
+  ],
+  banner : [
+    {
+      id: 'name',
+      name: 'Name',
+      type: 'Symbol',
+      required: true
+    },
+    {
+      id: 'items',
+      name: 'Items',
+      type: 'Array',
+      items: {
+        type: "Link",
+        validations: [
+          {
+            linkContentType: [
+              "mediaEnriched",
+              "content",
+            ]
+          }
+        ],
+        linkType: "Entry"
+      },
+      required: true
+    },
+    {
+      id: 'duration',
+      name: 'Duration',
+      type: 'Number',
+      required: false
+    },
+    {
+      id: 'classes',
+      name: 'Additional Classes',
+      type: 'Symbol',
+      required: false
+    },
+    {
+      id: 'transitionStyle',
+      name: 'Transition Style',
+      type: 'Text',
+      required: false
+    },
+    {
+      id: 'style',
+      name: 'Additional Style',
+      type: 'Text',
       required: false
     },
   ],
@@ -227,6 +288,20 @@ const fieldsProperties = {
       linkType: "Asset",
     },
     {
+      id: 'tablet',
+      name: 'Tablet - Media',
+      type: 'Link',
+      required: false,
+      linkType: "Asset",
+    },
+    {
+      id: 'mobile',
+      name: 'Mobile - Media',
+      type: 'Link',
+      required: false,
+      linkType: "Asset",
+    },
+    {
       id: 'classes',
       name: 'Additional Classes',
       type: 'Symbol',
@@ -288,6 +363,16 @@ const fieldsProperties = {
       id: 'label',
       name: 'Label',
       type: 'Symbol',
+      required: false
+    },
+    {
+      id: 'media',
+      name: 'Media',
+      type: 'Link',
+      linkType:'Entry',
+      validations : [{
+        linkContentType : ['mediaEnriched']
+      }],
       required: false
     },
     {
@@ -396,7 +481,7 @@ const fieldsProperties = {
       type: 'Link',
       linkType:'Entry',
       validations : [{
-        linkContentType : ['buttonField']
+        linkContentType : ['buttonField'],
       }],
       required: false
     },
@@ -438,7 +523,7 @@ const fieldsProperties = {
     {
       id: 'itemStyle',
       name: 'Item Wrapper Style',
-      type: 'Object',
+      type: 'Text',
       required: false
     },
     {
@@ -450,7 +535,7 @@ const fieldsProperties = {
     {
       id: 'style',
       name: 'Additional Style',
-      type: 'Object',
+      type: 'Text',
       required: false
     },
   ]

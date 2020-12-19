@@ -2,6 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic'
 import classnames from 'classnames';
 import styled from 'styled-components'
+
 const MediaEnriched = dynamic(() => import('../content/MediaEnriched'));
 const Button = dynamic(() => import('../content/Button'));
 enum Items {
@@ -13,7 +14,8 @@ const validItems = {
   [Items.MEDIA_ENRICHED]: MediaEnriched,
   [Items.BUTTON]: Button,
 };
-
+const WrappedDiv = styled.div`${props => props.styled}`;
+const WrappedUl = styled.ul`${props => props.styled}`;
 const HeaderWrapper = styled.header`${props => props.styled}`;
 const MenuContext = React.createContext({
   openMenu: '',
@@ -27,37 +29,37 @@ function MenuItem(props) {
 
   if (items?.length) {
     return (
-      <div className={classes} style={style}>
+      <WrappedDiv className={classes} styled={style}>
 
         {link ?
-          <div
+          <li
             ref={buttonRef}
             onMouseEnter={() => changeOpenMenu(props.name)}
           >
             <Button {...props.link} />
-            {openMenu === props.name && <ul
+            {openMenu === props.name && <WrappedUl
               onMouseEnter={() => changeOpenMenu(props.name)}
               className={classnames('absolute z-10', itemClasses)}
-              style={itemStyle}
+              styled={itemStyle}
             >
               {items.map((item, idx) => {
                 return <MenuItem key={idx} {...item} />
               })}
-            </ul>}
-          </div> :
-          <ul
+            </WrappedUl>}
+          </li> :
+          <WrappedUl
             onMouseEnter={() => changeOpenMenu(props.name)}
             className={classnames('', itemClasses)}
-            style={itemStyle}
+            styled={itemStyle}
           >
             {items.map((item, idx) => {
               return <MenuItem key={idx} {...item} />
             })}
-          </ul>
+          </WrappedUl>
         }
 
 
-      </div>
+      </WrappedDiv>
     )
   } else if (validItems[props.type]) {
     const Component = validItems[props.type]
@@ -77,7 +79,7 @@ const Navbar = (props: any, ref) => {
 
       onMouseLeave={() => changeOpenMenu('')}
       sticky={props.sticky}
-      className={classnames(`${props.sticky ? 'fixed' : ''} ${props.classes}`)} styled={props.styled}>
+      className={classnames(`${props.sticky ? 'fixed' : 'relative'} ${props.classes}`)} styled={props.styled}>
       <MenuContext.Provider value={{ openMenu, changeOpenMenu }}>
         <MenuItem {...props.desktop} />
       </MenuContext.Provider>
