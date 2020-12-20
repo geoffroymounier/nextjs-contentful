@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
-    "build": "npm run populate:css && next build",
+    "build": "next build",
     "start": "next start",
     "build-stats": "ANALYZE=true npm run build",
     "export": "next export -o dist",
@@ -11,7 +11,7 @@
     "clean": "rimraf .next dist",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
     "populate:contentful": "dotenv contentful space migration --space-id %CONTENTFUL_SPACE% src/utils/Contentful.js --y",
-    "populate:css": "dotenv contentful space migration --management-token %MANAGEMENT_TOKEN% --space-id %CONTENTFUL_SPACE% src/utils/Purge.js --y"
+    "populate:css": "dotenv contentful space migration --management-Token %MANAGEMENT_TOKEN% --space-id %CONTENTFUL_SPACE% src/utils/Purge.js --y"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^14.1.2",
