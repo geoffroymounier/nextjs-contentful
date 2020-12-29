@@ -11,7 +11,8 @@
 
   const classArray = [...new Set(items.reduce((acc,item) => {
     if (item.fields.classes) {
-      const classByLang = Object.keys(item.fields.classes).reduce((acc,key) => {
+
+      const classByLang = Object.keys({...item.fields.itemClasses,...item.fields.classes}).reduce((acc,key) => {
         const array = item.fields.classes[key].split(' ')
         return [...acc,...array]
       },[])

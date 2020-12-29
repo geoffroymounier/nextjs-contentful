@@ -36,11 +36,17 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          {/* {<script
+            dangerouslySetInnerHTML={{
+              __html: 'window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}',
+            }}
+          />} */}
         </Head>
 
         <body>
           <Main />
           <NextScript />
+          <div id="portal-root" />
         </body>
       </Html>
     );
