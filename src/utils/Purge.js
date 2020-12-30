@@ -10,10 +10,10 @@
   });
 
   const classArray = [...new Set(items.reduce((acc,item) => {
-    if (item.fields.classes) {
-
-      const classByLang = Object.keys({...item.fields.itemClasses,...item.fields.classes}).reduce((acc,key) => {
-        const array = item.fields.classes[key].split(' ')
+    if (item.fields.classes || item.fields.itemClasses) {
+      const json = {...item.fields.itemClasses,...item.fields.classes}
+      const classByLang = Object.keys(json).reduce((acc,key) => {
+        const array = json[key].split(' ')
         return [...acc,...array]
       },[])
 

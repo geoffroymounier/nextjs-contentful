@@ -1,7 +1,7 @@
 module.exports = {
   darkMode: 'media', // 'media' or 'class',
   purge: {
-    content: ['./classArray.json'],
+    content: ['./classArray.json','./src/**/*.{js,ts,jsx,tsx}'],
     css: ['./styles/index.css'],
   },
   theme: {
