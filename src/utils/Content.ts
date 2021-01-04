@@ -7,6 +7,9 @@ export const CONTENT_TYPE_TAGS = 'tag';
 const Space: string = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE!;
 const Token: string = process.env.NEXT_PUBLIC_CONTENTFUL_TOKEN!;
 
+
+
+
 const client = createClient({
   space: Space,
   accessToken: Token,
@@ -26,7 +29,7 @@ const fetchBlogs = async (href?: string) => {
     ...(href && { 'fields.href': href }),
   });
 };
-const fetchBlogArticles = async (limit?: number, skip?: number, href?: string) => {
+const fetchBlogArticles = async (limit?: number, skip?: number, href?: string | string[])  => {
   return await client.getEntries({
     content_type: CONTENT_TYPE_BLOG,
     include: 10,

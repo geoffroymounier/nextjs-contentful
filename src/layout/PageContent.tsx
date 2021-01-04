@@ -1,11 +1,11 @@
 import React from 'react';
-
 import dynamic from 'next/dynamic';
 
 const Content = dynamic(() => import('../content/Content'));
 const Navbar = dynamic(() => import('../navigation/Navbar'));
 const Banner = dynamic(() => import('./Banner'));
-import Blog from './Blog';
+const Blog = dynamic(() => import('./Blog'));
+
 
 enum Blocks {
   CONTENT = 'content',

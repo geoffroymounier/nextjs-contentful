@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 
 import { Config } from '../utils/Config';
 
@@ -17,8 +16,6 @@ type IMetaProps = {
 };
 
 const Meta = (props: IMetaProps) => {
-  const router = useRouter();
-
   return (
     <>
       <Head>

@@ -1,29 +1,29 @@
 import React from 'react';
-import { useRouter } from 'next/router';
-import { Magic } from 'magic-sdk';
+// import { useRouter } from 'next/router';
+// import { Magic } from 'magic-sdk';
 
 const Login = () => {
-  const router = useRouter()
+  // const router = useRouter()
   const handleSubmit = async (event) => {
     event.preventDefault()
   
-    const { elements } = event.target
+    // const { elements } = event.target
 
-    const authRequest = await fetch('/api/login', {
-      method: 'POST',
-      body : JSON.stringify({
-        email: elements.email.value
-      })
-    })
-    if (authRequest.ok) {
-      await new Magic(process.env.NEXT_PUBLIC_MAGIC_PUB_KEY)
-      .auth
-      .loginWithMagicLink({ email: elements.email.value })
-      // We successfully logged in, our API
-      // set authorization cookies and now we
-      // can redirect to the dashboard!
-      router.push('/')
-    } else { /* handle errors */ }
+    // const authRequest = await fetch('/api/login', {
+    //   method: 'POST',
+    //   body : JSON.stringify({
+    //     email: elements.email.value
+    //   })
+    // })
+    // if (authRequest.ok) {
+    //   await new Magic(process.env.NEXT_PUBLIC_MAGIC_PUB_KEY)
+    //   .auth
+    //   .loginWithMagicLink({ email: elements.email.value })
+    //   // We successfully logged in, our API
+    //   // set authorization cookies and now we
+    //   // can redirect to the dashboard!
+    //   router.push('/')
+    // } else { /* handle errors */ }
   }
 
   return (

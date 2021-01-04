@@ -11,7 +11,8 @@ import {parseData} from '../../utils/Parser';
 import { ContentContext } from '../../context/ContentContext';
 
 export type PageProps = {
-  content: EntryCollection<any>;
+  page: EntryCollection<any>;
+  item: EntryCollection<any>;
 };
 
 type IPageUrl = {

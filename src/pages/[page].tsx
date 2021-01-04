@@ -4,7 +4,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import {EntryCollection} from 'contentful'
 import { Meta } from '../layout/Meta';
 import Main from '../templates/Main';
-import { fetchPages } from '../utils/Content';
+import {fetchPages} from '../utils/Content';
 import PageContent from '../layout/PageContent';
 import { Config } from '../utils/Config';
 import {parseData} from '../utils/Parser';
@@ -12,6 +12,8 @@ import {parseData} from '../utils/Parser';
 export type PageProps = {
   page: EntryCollection<any>;
 };
+
+
 
 type IPageUrl = {
   page: string;
@@ -35,7 +37,7 @@ export const getStaticPaths: GetStaticPaths<IPageUrl> = async () => {
 
 
   return {
-    paths: pages.filter(({href}) => href !== 'index' ).map(({href}) => ({
+    paths: pages.filter(({href}) => href !== 'index' && href !== 'blog' ).map(({href}) => ({
       params: {
         page: href
       },
@@ -46,7 +48,7 @@ export const getStaticPaths: GetStaticPaths<IPageUrl> = async () => {
 
 export const getStaticProps: GetStaticProps<PageProps, IPageUrl> = async ({ params }) => {
   console.log(params)
-  const pages = parseData(await contentful.fetchPages(params!.page));
+  const pages = parseData(await fetchPages(params!.page));
   
   return {
     props: {
