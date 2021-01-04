@@ -12,8 +12,13 @@ type ButtonProps = {
   styled?: string;
 };
 
-const LinkWrapper = styled.div`${props => props.styled}`
-const ButtonWrapper = styled.button`${props => props.styled}`
+const LinkWrapper = styled.div`
+position:relative;
+${props => props.styled}`
+
+const ButtonWrapper = styled.button`
+position:relative;
+${props => props.styled}`
 
 const Button: React.FC<ButtonProps> = ({
   linkType, label, media, href, classes, style

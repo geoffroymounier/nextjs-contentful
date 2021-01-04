@@ -44,7 +44,7 @@ function unNestArray (item, json) {
 }
 
 function parseData(object) {
-  if (object.items && object.items.length) return object.items.map(item =>  unNestJson(item,{}))
+  if (object.items) return object.items.map(item =>  unNestJson(item,{}))
   else unNestJson(object,{})
 }
 function jsonToArray (json) {

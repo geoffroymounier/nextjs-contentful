@@ -6,7 +6,7 @@ type IMainProps = {
   meta: React.ReactNode;
   banner?: React.ReactNode;
   children: React.ReactNode;
-  header: any
+  header?: any
 };
 
 const Main = (props: IMainProps) => {
@@ -37,10 +37,10 @@ const Main = (props: IMainProps) => {
     <div className="antialiased w-full text-gray-700">
       {props.meta}
 
-      <div style={{marginTop:offset}}>
+      <div className={'min-h-screen flex flex-col'} style={{marginTop:offset}}>
         <div>
           {props.banner && <PageContent blocks={[props.banner]} />}
-          <Navbar ref={menuHeight} {...props.header} sticky={sticky} />
+          {props.header ? <Navbar ref={menuHeight} {...props.header} sticky={sticky} /> : <div ref={menuHeight}/> }
 
         </div>
 

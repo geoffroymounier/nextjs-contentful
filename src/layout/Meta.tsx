@@ -1,10 +1,8 @@
 import React from 'react';
 
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 
 import { Config } from '../utils/Config';
-import { addTrailingSlash } from '../utils/Url';
 
 type IMetaProps = {
   title: string;
@@ -18,8 +16,6 @@ type IMetaProps = {
 };
 
 const Meta = (props: IMetaProps) => {
-  const router = useRouter();
-
   return (
     <>
       <Head>
@@ -92,7 +88,7 @@ const Meta = (props: IMetaProps) => {
               "name": "${Config.author}"
             },
             "@type": "BlogPosting",
-            "url": "${Config.url}${process.env.baseUrl}${addTrailingSlash(router.asPath)}",
+            "url": "${Config.url}${process.env.baseUrl}",
             "publisher": {
               "@type": "Organization",
               "logo": {
@@ -107,7 +103,7 @@ const Meta = (props: IMetaProps) => {
             "dateModified": "${new Date(props.post.modified_date).toISOString()}",
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": "${Config.url}${process.env.baseUrl}${addTrailingSlash(router.asPath)}"
+              "@id": "${Config.url}${process.env.baseUrl}"
             },
             "@context": "http://schema.org"
           }`,

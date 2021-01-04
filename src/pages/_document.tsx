@@ -1,7 +1,7 @@
 import React from 'react';
 import { ServerStyleSheet } from 'styled-components'
 import Document, {
-  Html, Main, NextScript,
+  Html, Head, Main, NextScript,
 } from 'next/document';
 
 class MyDocument extends Document {
@@ -35,9 +35,18 @@ class MyDocument extends Document {
 
     return (
       <Html lang="en">
+        <Head>
+          {/* {<script
+            dangerouslySetInnerHTML={{
+              __html: 'window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}',
+            }}
+          />} */}
+        </Head>
+
         <body>
           <Main />
           <NextScript />
+          <div id="portal-root" />
         </body>
       </Html>
     );
