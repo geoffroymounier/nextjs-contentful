@@ -613,8 +613,7 @@ const fieldsProperties = {
             in: [
               "image",
               "title",
-              "description",
-              "date"
+              "description"
             ]
           }
         ]

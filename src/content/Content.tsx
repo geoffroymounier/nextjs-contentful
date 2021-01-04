@@ -15,7 +15,7 @@ type ContentProps = {
   items: any[];
   classes?: string;
   background?: any;
-  style?: any;
+  styled?: any;
 };
 
 enum Items {
@@ -32,10 +32,10 @@ const validItems = {
   [Items.BUTTON]: Buttons,
 };
 
-function Content({ items, background, classes, style }: ContentProps) {
+function Content({ items, background, classes, styled }: ContentProps) {
 
   return (
-    <WrappedDiv className={classes} styled={style} hasBackground={!!background}>
+    <WrappedDiv className={classes} styled={styled} hasBackground={!!background}>
       {background && <MediaEnriched {...background} isBackground/>}
       {items.map((item, id) => {
         const { type } = item;

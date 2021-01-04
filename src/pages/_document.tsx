@@ -36,11 +36,11 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          {<script
+          {/* {<script
             dangerouslySetInnerHTML={{
               __html: 'window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}',
             }}
-          />}
+          />} */}
         </Head>
 
         <body>
