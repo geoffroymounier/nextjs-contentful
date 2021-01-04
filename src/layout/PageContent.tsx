@@ -5,17 +5,20 @@ import dynamic from 'next/dynamic';
 const Content = dynamic(() => import('../content/Content'));
 const Navbar = dynamic(() => import('../navigation/Navbar'));
 const Banner = dynamic(() => import('./Banner'));
+import Blog from './Blog';
 
 enum Blocks {
   CONTENT = 'content',
   BANNER= 'banner',
   MENU = 'menu',
+  BLOG = 'blog'
 }
 
 const validBlocks = {
   [Blocks.CONTENT]: Content,
   [Blocks.MENU]: Navbar,
   [Blocks.BANNER]: Banner,
+  [Blocks.BLOG]: Blog
 };
 
 const PageContent = ({ blocks }) => blocks.map((block, id: number) => {

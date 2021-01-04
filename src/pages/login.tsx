@@ -6,11 +6,12 @@ import { Meta } from '../layout/Meta';
 import Login from '../layout/Login';
 import Main from '../templates/Main';
 
+
 export type PageProps = {
   page: EntryCollection<any>;
 };
 
-const Index = () => (
+const LoginPage = () => (
   <Main
     meta={(
       <Meta
@@ -25,4 +26,4 @@ const Index = () => (
 
 
 
-export default Index;
+export default LoginPage;

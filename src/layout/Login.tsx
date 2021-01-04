@@ -8,23 +8,20 @@ const Login = () => {
     event.preventDefault()
   
     const { elements } = event.target
-  
-    // the Magic code
-    const did = await new Magic(process.env.NEXT_PUBLIC_MAGIC_PUB_KEY)
-      .auth
-      .loginWithMagicLink({ email: elements.email.value })
-  
-    // Once we have the token from magic,
-    // update our own database
+
     const authRequest = await fetch('/api/login', {
       method: 'POST',
-      headers: { Authorization: `Bearer ${did}` }
+      body : JSON.stringify({
+        email: elements.email.value
+      })
     })
-    // console.log(did)
     if (authRequest.ok) {
-    //   // We successfully logged in, our API
-    //   // set authorization cookies and now we
-    //   // can redirect to the dashboard!
+      await new Magic(process.env.NEXT_PUBLIC_MAGIC_PUB_KEY)
+      .auth
+      .loginWithMagicLink({ email: elements.email.value })
+      // We successfully logged in, our API
+      // set authorization cookies and now we
+      // can redirect to the dashboard!
       router.push('/')
     } else { /* handle errors */ }
   }

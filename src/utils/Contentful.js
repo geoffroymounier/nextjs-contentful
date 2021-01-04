@@ -126,7 +126,8 @@ const fieldsProperties = {
           {
             linkContentType: [
               "content",
-              "banner"
+              "banner",
+              "blog"
             ]
           }
         ],
@@ -246,7 +247,7 @@ const fieldsProperties = {
                   "mediaEnriched",
                   "textEnriched"
                 ],
-                "message": null
+                message: null
               }
             ]
           }
@@ -538,8 +539,182 @@ const fieldsProperties = {
       type: 'Text',
       required: false
     },
+  ],
+  blog: [
+    {
+      id: 'name',
+      name: 'Name',
+      type: 'Symbol',
+      required: true
+    },
+    {
+      id: "tags",
+      name: "tags",
+      type: "Array",
+      items: {
+        type: "Symbol",
+        validations: []
+      }
+    },
+    {
+      id: "nbArticles",
+      name: "Nombre d'Articles",
+      type: "Symbol",
+      required: true,
+      validations: [
+        {
+          in: [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+          ]
+        }
+      ]
+    },
+    {
+      id: "nbPagination",
+      name: "Nombre de Pages dans bandeau pagination",
+      type: "Symbol",
+      required: true,
+      validations: [
+        {
+          in: [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+          ]
+        }
+      ]
+    },
+    {
+      id: "items",
+      name: "Items",
+      type: "Array",
+      items: {
+        type: "Symbol",
+        validations: [
+          {
+            in: [
+              "image",
+              "title",
+              "description",
+              "date"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      id: 'classes',
+      name: 'Additional Classes',
+      type: 'Symbol',
+      required: false
+    },
+    {
+      id: 'style',
+      name: 'Additional Style',
+      type: 'Text',
+      required: false
+    },
+    {
+      id: 'itemClasses',
+      name: 'Blog Item Classes (for list of items only)',
+      type: 'Symbol',
+      required: false
+    },
+    {
+      id: 'itemStyle',
+      name: 'Item Wrapper Style',
+      type: 'Text',
+      required: false
+    },
+    {
+      id: 'paginationClasses',
+      name: 'Pagination Classes (for list of items only)',
+      type: 'Symbol',
+      required: false
+    },
+    {
+      id: 'paginationStyle',
+      name: 'Item Wrapper Style',
+      type: 'Text',
+      required: false
+    },
+  ],
+  blogItem: [
+    {
+      id: 'name',
+      name: 'Titre',
+      type: 'Symbol',
+      required: true
+    },
+    {
+      id: 'description',
+      name: 'Description',
+      type: 'Symbol',
+      required: false
+    },
+    {
+      id: 'href',
+      name: 'Href Link',
+      type: 'Symbol',
+      required: true
+    },
+    {
+      id: 'tags',
+      name: 'Tags',
+      type: 'Symbol',
+      required: false
+    },
+    {
+      id: 'headImage',
+      name: "Image d'en tête",
+      type: 'Link',
+      linkType:'Entry',
+      validations : [{
+        linkContentType : ['mediaEnriched']
+      }],
+      required: false
+    },
+    {
+      id: 'type',
+      name: 'How to display subItems',
+      type: 'Symbol',
+      validations: [
+        { in: [ 'flyout', 'dropdown' ] }
+      ],
+      required: false
+    },
+
+    {
+      id: 'classes',
+      name: 'Additional Classes',
+      type: 'Symbol',
+      required: false
+    },
+    {
+      id: 'style',
+      name: 'Additional Style',
+      type: 'Text',
+      required: false
+    },
   ]
-  
 }
 
 

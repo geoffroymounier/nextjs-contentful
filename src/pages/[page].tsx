@@ -4,7 +4,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import {EntryCollection} from 'contentful'
 import { Meta } from '../layout/Meta';
 import Main from '../templates/Main';
-import ContentfulService from '../utils/Content';
+import { fetchPages } from '../utils/Content';
 import PageContent from '../layout/PageContent';
 import { Config } from '../utils/Config';
 import {parseData} from '../utils/Parser';
@@ -12,8 +12,6 @@ import {parseData} from '../utils/Parser';
 export type PageProps = {
   page: EntryCollection<any>;
 };
-
-const contentful = new ContentfulService();
 
 type IPageUrl = {
   page: string;
@@ -33,7 +31,7 @@ const Page = (props: any) => (
   </Main>
 );
 export const getStaticPaths: GetStaticPaths<IPageUrl> = async () => {
-  const pages = parseData(await contentful.fetchPages());
+  const pages = parseData(await fetchPages());
 
 
   return {
