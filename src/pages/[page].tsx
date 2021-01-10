@@ -47,7 +47,6 @@ export const getStaticPaths: GetStaticPaths<IPageUrl> = async () => {
 };
 
 export const getStaticProps: GetStaticProps<PageProps, IPageUrl> = async ({ params }) => {
-  console.log(params)
   const pages = parseData(await fetchPages(params!.page));
   
   return {

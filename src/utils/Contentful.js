@@ -487,11 +487,43 @@ const fieldsProperties = {
       required: false
     },
     {
-      id: 'type',
+      id: 'subItemType',
       name: 'How to display subItems',
       type: 'Symbol',
       validations: [
-        { in: [ 'flyout', 'dropdown' ] }
+        { in: [ 'flyout', 'dropdown', 'hamburger' ] }
+      ],
+      required: false
+    },
+    {
+      id: 'interactionIn',
+      name: 'How to trigger subItems',
+      type: 'Array',
+      items: {
+        type: "Symbol",
+        validations: [
+          {
+            "in": [
+              "hover",
+              "click"
+            ]
+          }
+        ]
+      },
+      required: false
+    },
+    {
+      id: 'interactionDuration',
+      name: 'Duration in ms',
+      type: 'Number',
+      validations: [
+        {
+          range: {
+            min: 0,
+            max: 5000
+          },
+          message: "transition between 0 and 5000ms only"
+        }
       ],
       required: false
     },

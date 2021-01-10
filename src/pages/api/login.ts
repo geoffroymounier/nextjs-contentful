@@ -30,8 +30,5 @@ export default async (req, res) => {
       return mail === email;
     }) > -1;
   if (!userExists) return res.status(405).end();
-  // Author a couple of cookies to persist a users session
-  // TODO
-  // console.log(user,userExists)
   res.end();
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import LazyLoad from 'react-lazyload';
-import { isBrowser, getWidth } from '../utils/env'
+import { useWidth } from '../utils/env'
 
 const WrappedImg = styled.img`
 position : ${props => props.isBackground ? 'absolute' : 'initial'};
@@ -42,22 +42,16 @@ const MediaEnriched: React.FC<MediaEnrichedProps> = ({ media, tablet, mobile,isB
   const mediaTypeNotSvg = !/\/svg/.test(media.file.contentType)
   const {height,width} = media.file.details.image
   const pictureRef = React.useRef<string>(`${media.file.url}${mediaTypeNotSvg  ? `?fm=jpg&fl=progressive` : ''}`)
-  
+  const [viewPortWidth] = useWidth()
   React.useEffect(() => {
-    const handleResize = (e) => pictureRef.current = e.target.innerWidth > 1000 ?
+    const handleResize = () => pictureRef.current = viewPortWidth > 1000 ?
       `${media.file.url}${mediaTypeNotSvg ? `?fm=jpg&fl=progressive&w=1400` : ''}`
-      : e.target.innerWidth > 600 ?
+      : viewPortWidth > 600 ?
         `${tablet?.file?.url || media.file.url}${mediaTypeNotSvg ? `?fm=jpg&fl=progressive&w=1000` : ''}`
         :
         `${mobile?.file?.url || tablet?.file?.url || media.file.url}${mediaTypeNotSvg ? `?fm=jpg&fl=progressive&w=600` : ''}`
-    if (isBrowser()) {
-      window.addEventListener('resize', handleResize)
-      handleResize({ target: { innerWidth: getWidth() } })
-      return () => window.removeEventListener('resize', handleResize)
-    } else {
-      return () => {}
-    }
-  }, [])
+        handleResize()
+  }, [viewPortWidth])
 
   return (<LazyLoad>
     <picture >
