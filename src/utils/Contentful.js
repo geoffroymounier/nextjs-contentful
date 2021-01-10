@@ -1,5 +1,67 @@
 
 const fieldsProperties = {
+  accordion : [
+    {
+      id: 'accordion',
+      name: 'Accordion',
+      type: 'Symbol',
+      required: true
+    },
+    {
+      id: 'header',
+      name: 'Header',
+      type: 'Link',
+      linkType:'Entry',
+      validations : [{
+        linkContentType : ['textEnriched']
+      }],
+      required: true
+    },
+    {
+      id: 'bullet',
+      name: 'Bullet',
+      type: 'Link',
+      linkType:'Entry',
+      validations : [{
+        linkContentType : ['mediaEnriched']
+      }],
+      required: true
+    },
+    {
+      id: 'content',
+      name: 'Content',
+      type: 'Link',
+      linkType:'Entry',
+      validations : [{
+        linkContentType : ['content']
+      }],
+      required: true
+    },
+    {
+      id: 'itemClasses',
+      name: 'Header Classe',
+      type: 'Symbol',
+      required: false
+    },
+    {
+      id: 'itemStyle',
+      name: 'Header Style',
+      type: 'Text',
+      required: false
+    },
+    {
+      id: 'classes',
+      name: 'Additional Classes',
+      type: 'Symbol',
+      required: false
+    },
+    {
+      id: 'styled',
+      name: 'Additional Style',
+      type: 'Text',
+      required: false
+    },
+  ],
   content : [
     {
       id: 'name',
@@ -25,6 +87,7 @@ const fieldsProperties = {
           {
             linkContentType: [
               "buttons",
+              "accordion",
               "textEnriched",
               "mediaEnriched",
               "RichText",
