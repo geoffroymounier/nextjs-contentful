@@ -2,8 +2,8 @@
 const fieldsProperties = {
   accordion : [
     {
-      id: 'accordion',
-      name: 'Accordion',
+      id: 'name',
+      name: 'Name',
       type: 'Symbol',
       required: true
     },
@@ -39,13 +39,13 @@ const fieldsProperties = {
     },
     {
       id: 'itemClasses',
-      name: 'Header Classe',
+      name: 'Wrapper Classes',
       type: 'Symbol',
       required: false
     },
     {
       id: 'itemStyle',
-      name: 'Header Style',
+      name: 'Wrapper Style',
       type: 'Text',
       required: false
     },
