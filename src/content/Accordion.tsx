@@ -15,16 +15,11 @@ type AccordionProps = {
   itemStyle?: string;
 };
 
-const ContentWrapper = styled.div`
-${props => props.styled}
-
-`
-
 const WrappedDiv = styled.div`
 ${props => props.styled}`
 
 const Accordion: React.FC<AccordionProps> = ({
-  header, bullet, content, classes, styled, itemClasses, itemStyle
+  header, bullet, content, classes, styled, itemClasses
 }) => {
   const [isOpen, setIsOpen] = React.useState(false)
   const toggle = () => {
