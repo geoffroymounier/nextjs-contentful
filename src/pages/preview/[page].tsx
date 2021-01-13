@@ -12,11 +12,6 @@ export type PageProps = {
   page: EntryCollection<any>;
 };
 
-
-
-type IPageUrl = {
-  page: string;
-};
 const Page = (props: any) => (
   <Main
     header={props.page.header}
