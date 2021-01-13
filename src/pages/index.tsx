@@ -1,12 +1,12 @@
 import React from 'react';
 import { EntryCollection } from 'contentful';
-import {parseData} from '../utils/Parser';
+import {parseData} from 'utils/Parser';
 import { GetStaticProps } from 'next';
-import { fetchPages } from '../utils/Content';
-import { Config } from '../utils/Config';
-import { Meta } from '../layout/Meta';
-import PageContent from '../layout/PageContent';
-import Main from '../templates/Main';
+import { fetchPages } from 'utils/Content';
+import { Config } from 'utils/Config';
+import { Meta } from 'layout/Meta';
+import PageContent from 'layout/PageContent';
+import Main from 'templates/Main';
 
 
 export type PageProps = {
