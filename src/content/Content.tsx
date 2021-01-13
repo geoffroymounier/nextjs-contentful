@@ -5,6 +5,7 @@ import styled from 'styled-components'
 const TextEnriched = dynamic(() => import('./TextEnriched'));
 const MediaEnriched = dynamic(() => import('./MediaEnriched'));
 const Buttons = dynamic(()=> import('./Buttons'));
+const Accordion = dynamic(()=> import('./Accordion'));
 
 
 const WrappedDiv = styled.div`
@@ -23,6 +24,7 @@ enum Items {
   TEXT_ENRICHED = 'textEnriched',
   MEDIA_ENRICHED = 'mediaEnriched',
   BUTTON = 'buttons',
+  ACCORDION = 'accordion'
 }
 
 const validItems = {
@@ -30,6 +32,7 @@ const validItems = {
   [Items.TEXT_ENRICHED]: TextEnriched,
   [Items.MEDIA_ENRICHED]: MediaEnriched,
   [Items.BUTTON]: Buttons,
+  [Items.ACCORDION]: Accordion
 };
 
 function Content({ items, background, classes, styled }: ContentProps) {
