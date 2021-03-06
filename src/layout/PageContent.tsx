@@ -22,9 +22,9 @@ const validBlocks = {
 };
 
 const PageContent = ({ blocks }) => blocks.map((block, id: number) => {
-  const { type } = block;
-  if (validBlocks[type]) {
-    const Component = validBlocks[type];
+  const { _type } = block;
+  if (validBlocks[_type]) {
+    const Component = validBlocks[_type];
     // eslint-disable-next-line max-len
     return <Component key={id.toString()} {...block} />; // eslint-disable-line react/jsx-props-no-spreading
   }

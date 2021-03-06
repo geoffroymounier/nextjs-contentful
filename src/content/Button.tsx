@@ -23,18 +23,19 @@ ${props => props.styled}`
 const Button: React.FC<ButtonProps> = ({
   linkType, label, media, href, classes, style
 }) => {
+
   if (linkType === 'a') {
     return (
       <LinkWrapper className={classes} styled={style} onClick={() => window.location.href = (href)}>
         <a href={href} >
-          {media ? <MediaEnriched {...media}/> : label}
+          {media?.length ? <MediaEnriched {...(media)[0]}/> : label}
         </a>
       </LinkWrapper>
     );
   }
   return (
     <ButtonWrapper type="button" onClick={() => {}} className={classes} styled={style}>
-      {media ? <MediaEnriched {...media}/> : label}
+      {media?.length ? <MediaEnriched {...(media)[0]}/> : label}
     </ButtonWrapper>
   );
 };

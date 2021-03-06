@@ -12,6 +12,6 @@ module.exports = withBundleAnalyzer({
     baseUrl: baseUrl,
   },
   images: {
-    domains: ['images.ctfassets.net'],
-  },
+    domains: ['cdn.sanity.io']
+  }
 });

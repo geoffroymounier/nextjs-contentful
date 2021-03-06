@@ -1,37 +1,42 @@
 import React from 'react'
 import styled from 'styled-components';
-import { useRouter } from 'next/router'
-import { fetchBlogArticles } from '../utils/Content';
-import { parseData } from '../utils/Parser';
+// import { useRouter } from 'next/router'
+// import { fetchBlogArticles } from '../utils/Content';
+// import { parseData } from '../utils/Parser';
 
 const WrappedList = styled.div`
 ${props => props.styled}`
 
-const WrappedArticle = styled.article`
-${props => props.styled}`
+// const WrappedArticle = styled.article`
+// ${props => props.styled}`
 
 const WrappedPagination = styled.ul`
 ${props => props.styled}`
 
-const BlogList = ({ items, nbArticles, nbPagination, classes, style, itemStyle, itemClasses, paginationStyle, paginationClasses }) => {
-  const { query : {id} } = useRouter()
+const BlogList = ({
+  // items,
+   nbArticles, nbPagination, classes, style, 
+  // itemStyle,
+  //  itemClasses, 
+   paginationStyle, paginationClasses }) => {
+  // const { query : {id} } = useRouter()
   const totalItems = React.useRef<number>(0)
   const [pagination, setPagination] = React.useState<number>(0)
-  const [articles, setArticles] = React.useState([])
+  // const [articles, setArticles] = React.useState([])
 
   const startIndex = Math.trunc(pagination / nbPagination) * nbPagination
   const paginationArray = [...Array(Math.min(nbPagination, Math.ceil(totalItems.current / parseInt(nbArticles)) - startIndex)).keys()];
 
-  React.useEffect(() => {
-    const getSimilarArticles = async () => {
-      const rawArticlesData = await (fetchBlogArticles(nbArticles, pagination * nbArticles,id));
-      const fetchedArticles = parseData(rawArticlesData)
-      totalItems.current = rawArticlesData.total
-      setArticles(fetchedArticles.map(({ name, href, description }) => ({ name, href, description })))
-    }
-    getSimilarArticles()
-  }, [pagination])
-  const [showImg, showTitle, showDescription] = items
+  // React.useEffect(() => {
+  //   const getSimilarArticles = async () => {
+  //     const rawArticlesData = await (fetchBlogArticles(nbArticles, pagination * nbArticles,id));
+  //     const fetchedArticles = parseData(rawArticlesData)
+  //     totalItems.current = rawArticlesData.total
+  //     setArticles(fetchedArticles.map(({ name, href, description }) => ({ name, href, description })))
+  //   }
+  //   getSimilarArticles()
+  // }, [pagination])
+  // const [showImg, showTitle, showDescription] = items
 
   const nextDisabled = nbArticles * (startIndex + paginationArray.length) >= totalItems.current
   const prevDisabled = startIndex === 0
@@ -40,7 +45,7 @@ const BlogList = ({ items, nbArticles, nbPagination, classes, style, itemStyle, 
     <>
       <WrappedList className={classes} styled={style} >
 
-        {articles.map((article, idx) => {
+        {/* {articles.map((article, idx) => {
           const { name, href, description } = article
 
           return (
@@ -60,7 +65,7 @@ const BlogList = ({ items, nbArticles, nbPagination, classes, style, itemStyle, 
               </div>
             </WrappedArticle>
           )
-        })}
+        })} */}
 
       </WrappedList>
       <WrappedPagination className={paginationClasses} styled={paginationStyle}>

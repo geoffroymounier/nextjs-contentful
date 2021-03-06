@@ -1,18 +1,16 @@
 import React from 'react';
 
 import { GetStaticPaths, GetStaticProps } from 'next';
-import {EntryCollection} from 'contentful'
 import { Meta } from '../../layout/Meta';
 import Main from '../../templates/Main';
-import { fetchBlogs, fetchPages } from '../../utils/Content';
 import PageContent from '../../layout/PageContent';
 import { Config } from '../../utils/Config';
-import {parseData} from '../../utils/Parser';
 import { ContentContext } from '../../context/ContentContext';
+import { fetchBlogsFromSanity, fetchPagesFromSanity } from 'utils/Sanity';
 
 export type PageProps = {
-  page: EntryCollection<any>;
-  item: EntryCollection<any>;
+  page: Record<string,any>;
+  item: Record<string,any>;
 };
 
 type IPageUrl = {
@@ -36,13 +34,12 @@ const Blog = (props: any) => (
   </ContentContext.Provider>
 );
 export const getStaticPaths: GetStaticPaths<IPageUrl> = async () => {
-  const blogItems = parseData(await fetchBlogs());
-
+  const blogItems = await fetchBlogsFromSanity();
 
   return {
     paths: blogItems.map(({href}) => ({
       params: {
-        id: href
+        id: href.current
       },
     })),
     fallback: false,
@@ -50,13 +47,13 @@ export const getStaticPaths: GetStaticPaths<IPageUrl> = async () => {
 };
 
 export const getStaticProps: GetStaticProps<PageProps, IPageUrl> = async ({ params }) => {
-  const blog = parseData(await fetchBlogs(params!.id));
-  const frame = parseData(await fetchPages('blog'));
+  const blog = (await fetchBlogsFromSanity(params!.id))[0];
+  const frame = (await fetchPagesFromSanity('blog'))[0];
 
   return {
     props: {
-      page: frame[0],
-      item: blog[0]
+      page: frame,
+      item: blog
     },
   };
 };

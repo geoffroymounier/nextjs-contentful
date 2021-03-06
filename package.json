@@ -10,7 +10,7 @@
     "build-prod": "run-s clean build export",
     "clean": "rimraf .next dist",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
-    "populate:contentful": "dotenv contentful space migration --space-id %CONTENTFUL_SPACE% src/utils/Contentful.js --y",
+    "populate:contentful": "node src/utils/Purge.js",
     "populate:css": "dotenv contentful space migration --management-Token %MANAGEMENT_TOKEN% --space-id %CONTENTFUL_SPACE% src/utils/Purge.js --y"
   },
   "dependencies": {
@@ -29,7 +29,12 @@
     "react-lazyload": "^3.1.0",
     "react-transition-group": "^4.4.1",
     "styled-components": "^5.2.1",
-    "tailwindcss": "^2.0.1"
+    "tailwindcss": "^2.0.1",
+    "jsoneditor": "9.1.9",
+    "jsoneditor-react": "3.1.0",
+    "@sanity/image-url":"0.140.22",
+    "@sanity/block-content-to-react":"2.0.7",
+    "next-sanity-image": "1.0.1"
   },
   "license": "ISC",
   "devDependencies": {
@@ -42,14 +47,18 @@
     "contentful-import": "^7.8.7",
     "contentful-migration": "^2.0.11",
     "cross-var": "1.1.0",
+    "css-loader": "~5.0.1",
+    "nodemon":"2.0.7",
     "dotenv": "8.2.0",
     "dotenv-cli": "4.0.0",
     "eslint": "^7.14.0",
+    "identity-obj-proxy":"3.0.0",
     "eslint-config-airbnb-typescript": "^12.0.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "@sanity/client":"2.2.6",
     "lint-staged": "^10.5.1",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^12.0.1",
@@ -57,7 +66,12 @@
     "prettier": "^2.1.2",
     "purgecss": "3.0.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.0.5"
+    "style-loader": "~2.0.0",
+    "typescript": "^4.0.5",
+    "url-loader": "~4.1.1",
+    "lodash":"4.17.20",
+    "nanoid":"3.1.20",
+    "react-icons": "^3.11.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

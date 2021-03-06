@@ -7,5 +7,6 @@
     "source.addMissingImports",
     "source.fixAll.format",
     "source.fixAll.eslint"
-  ]
+  ],
+  "git.ignoreLimitWarning": true
 }
