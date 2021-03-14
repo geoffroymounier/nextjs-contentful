@@ -1,5 +1,5 @@
 import React from 'react';
-import { EntryCollection } from 'contentful';
+
 
 import { Config } from 'utils/Config';
 import { Meta } from 'layout/Meta';
@@ -8,7 +8,7 @@ import Main from 'templates/Main';
 
 
 export type PageProps = {
-  page: EntryCollection<any>;
+  page: any;
 };
 
 const LoginPage = () => (
