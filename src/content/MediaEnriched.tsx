@@ -54,7 +54,7 @@ function urlFor(source) {
 const MediaEnriched: React.FC<MediaEnrichedProps> = ({ media : defaultMedia, alternative = '', isBackground, classes, style }) => {
   const { item } = React.useContext(ContentContext)
   
-  const alternativeMedia = alternative.replace(/\${([\w\[\]\d\.]+)}/g, (_,match) => {
+  const alternativeMedia = alternative.replace(/\${([\w\[\]\d\.]+)}/g, (_change,match) => {
     return JSON.stringify(get(item, match) || "{}")
     
   })

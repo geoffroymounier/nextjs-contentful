@@ -32,7 +32,7 @@ const flattenObject = (item,json={}) => {
     useCdn: true // `false` if you want to ensure fresh data
   })
   
-  const query =  `*[_type == 'page']` 
+  const query =  `*[_type == 'page'] { ..., header->}` 
   const items = await client.fetch(query)
 
   const classArray = [...new Set(flattenObject(items))]

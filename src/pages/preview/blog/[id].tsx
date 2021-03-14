@@ -15,7 +15,7 @@ export type PageProps = {
 
 
 const Blog = (props: any) => {
-  // const [_, setChange] = React.useState(0)
+  // const [_change, setChange] = React.useState(0)
   const content = React.useRef(props.page.content)
   const article = React.useRef(props.item)
   const header = React.useRef(props.page.header)
@@ -49,7 +49,7 @@ const Blog = (props: any) => {
           />
         )}
       >
-        <PageContent blocks={content.current} />
+        <PageContent  classes={props.page.classes} style={props.page.style}   blocks={content.current} />
       </Main>
     </ContentContext.Provider>
   )

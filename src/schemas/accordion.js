@@ -1,4 +1,4 @@
-import {FaImage as icon} from 'react-icons/fa'
+import {FaCaretRight as icon} from 'react-icons/fa'
 
 export default {
   name: 'accordion',
@@ -14,7 +14,7 @@ export default {
     },
     {
       name: 'header',
-      title: 'Alternative Media',
+      title: 'Header',
       type: 'array',
       of:[{type:'textEnriched'}]
     },

@@ -29,7 +29,7 @@ const Blog = (props: any) => (
       />
     )}
   >
-    <PageContent blocks={props.page.content} />
+    <PageContent  classes={props.page.classes} style={props.page.style}   blocks={props.page.content} />
   </Main>
   </ContentContext.Provider>
 );

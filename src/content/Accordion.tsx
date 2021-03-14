@@ -26,15 +26,15 @@ const Accordion: React.FC<AccordionProps> = ({
     setIsOpen(!isOpen)
   }
   return (
-    <WrappedDiv className={classes} styled={styled}>
+    <WrappedDiv className={classnames('accordion',classes)} styled={styled}>
       <div
         className={'header'}
         onClick={toggle}
       >
-        {bullet && <MediaEnriched {...bullet} classes={classnames(bullet.classes,isOpen && 'open')} />}
-        <TextEnriched {...header} />
+        {bullet && <MediaEnriched {...bullet[0]} classes={classnames(bullet[0].classes,isOpen && 'open')} />}
+        <TextEnriched {...header[0]} />
       </div>
-        <Content {...content} classes={classnames(content.classes, itemClasses, isOpen && 'open')} />
+        <Content {...content[0]} classes={classnames(content[0].classes, itemClasses, (isOpen && 'open'))} />
     </WrappedDiv>
   );
 };

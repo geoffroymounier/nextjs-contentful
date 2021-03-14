@@ -16,7 +16,7 @@ const TextEnriched = ({classes,style,content}) => {
 
   const replaceText = props => (
       <>
-        {props.children[0].replace(/\${(\w+)}/g, (_,match) => item[match])}
+        {props.children[0].replace(/\${(\w+)}/g, (_change,match) => item[match])}
       </>
     )
   
