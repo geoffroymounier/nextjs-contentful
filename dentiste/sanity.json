@@ -18,7 +18,8 @@
     "visual-options",
     "duplicate-array-item",
     "media",
-    "position-input"
+    "position-input",
+    "sanity-plugin-copy-array-item"
   ],
   "env": {
     "development": {
