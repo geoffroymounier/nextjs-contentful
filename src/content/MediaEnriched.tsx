@@ -1,11 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import LazyLoad from 'react-lazyload';
-import { useWidth } from '../utils/env'
+import { get } from 'lodash'
+// import { useWidth } from '../utils/env'
+
+import { client } from 'utils/Sanity'
+import imageUrlBuilder from '@sanity/image-url'
+import { ContentContext } from 'context/ContentContext';
+
+const builder = imageUrlBuilder(client)
+
 
 const WrappedImg = styled.img`
 position : ${props => props.isBackground ? 'absolute' : 'initial'};
 top : ${props => props.isBackground ? '0' : 'initial'};
+z-index : ${props => props.isBackground ? '-1' : 'unset'};
 ${props => props.styled}`
 type MediaEnrichedProps = {
   media: {
@@ -13,9 +21,9 @@ type MediaEnrichedProps = {
       url: string;
       contentType: string;
       details: {
-        image : {
-          height:number,
-          width:number
+        image: {
+          height: number,
+          width: number
         }
       }
     };
@@ -35,46 +43,47 @@ type MediaEnrichedProps = {
   };
   classes?: string;
   style?: any;
-  isBackground?:boolean;
+  isBackground?: boolean;
+  alternative? : string;
 };
 
-const MediaEnriched: React.FC<MediaEnrichedProps> = ({ media, tablet, mobile,isBackground, classes, style }) => {
-  const mediaTypeNotSvg = !/\/svg/.test(media.file.contentType)
-  const {height,width} = media.file.details.image
-  const pictureRef = React.useRef<string>(`${media.file.url}${mediaTypeNotSvg  ? `?fm=jpg&fl=progressive` : ''}`)
-  const [viewPortWidth] = useWidth()
-  React.useEffect(() => {
-    const handleResize = () => pictureRef.current = viewPortWidth > 1000 ?
-      `${media.file.url}${mediaTypeNotSvg ? `?fm=jpg&fl=progressive&w=1400` : ''}`
-      : viewPortWidth > 600 ?
-        `${tablet?.file?.url || media.file.url}${mediaTypeNotSvg ? `?fm=jpg&fl=progressive&w=1000` : ''}`
-        :
-        `${mobile?.file?.url || tablet?.file?.url || media.file.url}${mediaTypeNotSvg ? `?fm=jpg&fl=progressive&w=600` : ''}`
-        handleResize()
-  }, [viewPortWidth])
+function urlFor(source) {
+  return builder.image(source)
+}
 
-  return (<LazyLoad>
+const MediaEnriched: React.FC<MediaEnrichedProps> = ({ media : defaultMedia, alternative = '', isBackground, classes, style }) => {
+  const { item } = React.useContext(ContentContext)
+  
+  const alternativeMedia = alternative.replace(/\${([\w\[\]\d\.]+)}/g, (_change,match) => {
+    return JSON.stringify(get(item, match) || "{}")
+    
+  })
+  const media = alternativeMedia ? JSON.parse(alternativeMedia) :  defaultMedia
+  const pictureRef = React.useRef(urlFor(media))
+  // const [viewPortWidth] = useWidth()
+  
+
+  return (
     <picture >
       <source
         media="(min-width: 1440px)"
-        srcSet={`${media.file.url}${mediaTypeNotSvg ? `?fm=jpg&fl=progressive&w=2000` : ''}`}
+        srcSet={`${pictureRef.current.width(2000)}`}
       />
       <source
         media="(min-width: 1000px) and (max-width : 1439px)"
-        srcSet={`${media.file.url}${mediaTypeNotSvg ? `?fm=jpg&fl=progressive&w=1400` : ''}`}
+        srcSet={`${pictureRef.current.width(1400)}`}
       />
       <source
         media="(min-width: 600px) and (max-width : 999px)"
-        srcSet={`${tablet?.file?.url || media.file.url}${mediaTypeNotSvg ? `?fm=jpg&fl=progressive&w=1000` : ''}`}
+        srcSet={`${pictureRef.current.width(1000)}`}
       />
       <WrappedImg
-      height={height} width={width}
         className={classes} styled={style} isBackground={isBackground}
         alt={media.title}
-        src={`${mobile?.file?.url || tablet?.file?.url || media.file.url}${mediaTypeNotSvg ? `?fm=jpg&fl=progressive&w=600` : ''}`}
+        src={`${pictureRef.current.width(600)}`}
       />
     </picture>
-    </LazyLoad>
+  
   )
 };
 

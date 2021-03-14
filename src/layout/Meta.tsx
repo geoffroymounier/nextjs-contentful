@@ -1,7 +1,5 @@
 import React from 'react';
-
 import Head from 'next/head';
-
 import { Config } from '../utils/Config';
 
 type IMetaProps = {

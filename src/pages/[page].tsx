@@ -1,18 +1,15 @@
 import React from 'react';
 
 import { GetStaticPaths, GetStaticProps } from 'next';
-import {EntryCollection} from 'contentful'
 import { Meta } from 'layout/Meta';
 import Main from 'templates/Main';
-import {fetchPages} from 'utils/Content';
 import PageContent from 'layout/PageContent';
 import { Config } from 'utils/Config';
-import {parseData} from 'utils/Parser';
+import { fetchPagesFromSanity } from 'utils/Sanity';
 
 export type PageProps = {
-  page: EntryCollection<any>;
+  page: Record<string,any>;
 };
-
 
 
 type IPageUrl = {
@@ -29,17 +26,16 @@ const Page = (props: any) => (
       />
     )}
   >
-    <PageContent blocks={props.page.content} />
+    <PageContent  classes={props.page.classes} style={props.page.style}   blocks={props.page.content} />
   </Main>
 );
 export const getStaticPaths: GetStaticPaths<IPageUrl> = async () => {
-  const pages = parseData(await fetchPages());
-
+  const pages = await fetchPagesFromSanity()
 
   return {
-    paths: pages.filter(({href}) => href !== 'index' && href !== 'blog' ).map(({href}) => ({
+    paths: pages.filter(({href}) => href.current !== 'index' && href.current !== 'blog' ).map(({href}) => ({
       params: {
-        page: href
+        page: href.current
       },
     })),
     fallback: false,
@@ -47,11 +43,11 @@ export const getStaticPaths: GetStaticPaths<IPageUrl> = async () => {
 };
 
 export const getStaticProps: GetStaticProps<PageProps, IPageUrl> = async ({ params }) => {
-  const pages = parseData(await fetchPages(params!.page));
+  const page = (await fetchPagesFromSanity(params!.page || 'index'))[0]
   
   return {
     props: {
-      page: pages[0]
+      page
     },
   };
 };

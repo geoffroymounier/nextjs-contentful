@@ -37,7 +37,7 @@ const Main = (props: IMainProps) => {
     <div className="antialiased w-full text-gray-700">
       {props.meta}
 
-      <div className={'min-h-screen flex flex-col'} style={{marginTop:offset}}>
+      <div className={'min-h-screen flex flex-col overflow-x-hidden'} style={{marginTop:offset}}>
         <div>
           {props.banner && <PageContent blocks={[props.banner]} />}
           {props.header ? <Navbar ref={menuHeight} {...props.header} sticky={sticky} /> : <div ref={menuHeight}/> }

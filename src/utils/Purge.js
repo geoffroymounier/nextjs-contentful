@@ -1,26 +1,42 @@
 
- const fs = require('fs');
- 
- const migration = async (migration, context) => {
+
+const fs = require('fs');
+const _ = require('lodash')
+const sanityClient = require('@sanity/client')
+
+const flattenObject = (item,json={}) => {
+  if (_.isArray(item)) {
+    return  item.reduce((acc,key) => {
+      if (/classes/i.test(key)) return [...acc,key]
+      if (_.isArray(key) || _.isObject(key)) {
+        return [...acc,...flattenObject(key)]
+      }
+      return acc
+    },[])
+  } else if (_.isObject(item)) {
+    return Object.keys(item).reduce((acc,key) => {
+      if (/classes/i.test(key)) return [...acc,item[key]]
+      if (_.isArray(item[key]) || _.isObject(item[key])) {
+        return [...acc,...flattenObject(item[key])]
+      }
+      return acc
+    },[])
+  }
   
-  const makeRequest = context.makeRequest
-  const {items} = await makeRequest({
-    method: 'GET',
-    url: `/entries`
-  });
+}
 
-  const classArray = [...new Set(items.reduce((acc,item) => {
-    if (item.fields.classes || item.fields.itemClasses || item.fields.paginationClasses) {
-      const json = {...item.fields.itemClasses,...item.fields.classes, ...item.fields.paginationClasses}
-      const classByLang = Object.keys(json).reduce((acc,key) => {
-        const array = json[key].split(' ')
-        return [...acc,...array]
-      },[])
+ const migration = async () => {
+  const client = sanityClient({
+    projectId: 'f2ewgphe',
+    dataset: 'production',
+    useCdn: true // `false` if you want to ensure fresh data
+  })
+  
+  const query =  `*[_type == 'page'] { ..., header->}` 
+  const items = await client.fetch(query)
 
-      return [...new Set([...acc,...classByLang])]
-    }
-    return acc
-  },[]))]
+  const classArray = [...new Set(flattenObject(items))]
+  
   const string = JSON.stringify(classArray)
 
   fs.writeFile('./classArray.json', string, function (err,data) {
@@ -32,5 +48,4 @@
   return
 
 };
-
-module.exports = migration;
+migration()

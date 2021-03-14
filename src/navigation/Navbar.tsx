@@ -5,11 +5,12 @@ import {CSSTransition} from 'react-transition-group'
 import { useWidth } from '../utils/env'
 import styled from 'styled-components'
 
-const MediaEnriched = dynamic(() => import('../content/MediaEnriched'));
 const Button = dynamic(() => import('../content/Button'));
+const MediaEnriched = dynamic(() => import('../content/MediaEnriched'));
+
 enum Items {
   MEDIA_ENRICHED = 'mediaEnriched',
-  BUTTON = 'buttonField',
+  BUTTON = 'button',
 }
 
 interface MenuItemProps {
@@ -49,13 +50,13 @@ const MenuItem: React.FC<MenuItemProps> = React.memo((props) => {
     return (
       <WrappedDiv className={classes} styled={style}>
 
-        {link ?
+        {link?.length ?
           <li
             ref={buttonRef}
             onMouseEnter={() =>interactionIn.findIndex(val => val === 'hover') > -1 && changeOpenMenu(props.name)}
             onClick={() => interactionIn.findIndex(val => val === 'click') > -1 && changeOpenMenu(props.name)}
           >
-            <Button {...props.link} />
+            <Button {...props.link[0]} />
             {<CSSTransition in={openMenu === props.name} timeout={200} classNames="transition">
               <WrappedUl
               className={classnames('absolute z-10', itemClasses)}
@@ -81,8 +82,8 @@ const MenuItem: React.FC<MenuItemProps> = React.memo((props) => {
         }
       </WrappedDiv>
     )
-  } else if (validItems[props.type]) {
-    const Component = validItems[props.type]
+  } else if (validItems[props["_type"]]) {
+    const Component = validItems[props["_type"]]
 
     return (<WrappedLi className={classes} styled={style}><Component {...props} /></WrappedLi>)
   } else return null
@@ -93,7 +94,7 @@ const Navbar = (props: any, ref) => {
   const [openMenu, setOpenMenu] = React.useState<string>('')
   const top = ref.current?.offsetTop
   const [width] = useWidth()
-  const menu = React.useMemo(() => width > 700 ? props.desktop : props.mobile ,[width])
+  const menu = React.useMemo(() => width > 700 ? props.desktop[0] : props.mobile[0] ,[width])
   const changeOpenMenu = (e: string) => setOpenMenu(e)
   
   return (

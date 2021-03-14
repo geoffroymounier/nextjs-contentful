@@ -1,0 +1,43 @@
+{
+  "root": true,
+  "project": {
+    "name": "Dentiste"
+  },
+  "api": {
+    "projectId": "f2ewgphe",
+    "dataset": "production"
+  },
+  "plugins": [
+    "@sanity/base",
+    "@sanity/components",
+    "@sanity/default-layout",
+    "@sanity/default-login",
+    "@sanity/desk-tool",
+    "@sanity/google-maps-input",
+    "parts-list",
+    "visual-options",
+    "duplicate-array-item",
+    "media",
+    "position-input",
+    "sanity-plugin-copy-array-item"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "@sanity/vision",
+        "json-to-docs",
+        "sanity-plugin-copy-array-item"
+      ]
+    }
+  },
+  "parts": [
+    {
+      "name": "part:@sanity/base/schema",
+      "path": "./schemas/schema"
+    },
+    {
+      "implements": "part:@sanity/form-builder/input/image/asset-sources",
+      "path": "./parts/assetSources.js"
+    }
+  ]
+}
