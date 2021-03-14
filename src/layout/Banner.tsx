@@ -8,7 +8,7 @@ const WrappedBanner = styled.div`${props => props.styled}`
 
 const Banner = ({ items, classes, duration, style, transitionStyle }) => {
 
-  const isVideo = items.length === 1 && /mp4/.test(items[0].media.file.contentType)
+  // const isVideo = items.length === 1 && /mp4/.test(items[0].media.file.contentType)
 
   const manualChange = useRef(false)
   const [{ itemNumber, transitionClassName }, setId] = useState({
@@ -55,7 +55,7 @@ const Banner = ({ items, classes, duration, style, transitionStyle }) => {
             <WrappedTransition styled={transitionStyle}>
               <Content
                 {...item}
-                isVideo={isVideo}
+                // isVideo={isVideo}
               />
             </WrappedTransition>
           </CSSTransition>

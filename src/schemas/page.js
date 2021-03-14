@@ -23,7 +23,7 @@ export default {
       name: 'banner',
       title: 'Banner',
       type: 'reference',
-      to:[{type:'content'}],
+      to:[{type:'banner'}],
     },
     {
       name: 'header',

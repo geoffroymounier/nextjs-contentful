@@ -18,7 +18,7 @@ enum Blocks {
 const validBlocks = {
   [Blocks.CONTENT]: Content,
   [Blocks.MENU]: Navbar,
-  [Blocks.BANNER]: Banner,
+  [Blocks.BANNER]: Content,
   [Blocks.BLOG]: Blog
 };
 

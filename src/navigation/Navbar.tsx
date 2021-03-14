@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import {CSSTransition} from 'react-transition-group'
 import { useWidth } from '../utils/env'
 import styled from 'styled-components'
+import Accordion from 'content/Accordion';
 
 const Button = dynamic(() => import('../content/Button'));
 const MediaEnriched = dynamic(() => import('../content/MediaEnriched'));
@@ -11,6 +12,7 @@ const MediaEnriched = dynamic(() => import('../content/MediaEnriched'));
 enum Items {
   MEDIA_ENRICHED = 'mediaEnriched',
   BUTTON = 'button',
+  ACCORDION = 'accordion'
 }
 
 interface MenuItemProps {
@@ -30,6 +32,7 @@ interface MenuItemProps {
 const validItems = {
   [Items.MEDIA_ENRICHED]: MediaEnriched,
   [Items.BUTTON]: Button,
+  [Items.ACCORDION]: Accordion,
 };
 const WrappedDiv = styled.div`${props => props.styled}`;
 const WrappedUl = styled.ul`${props => props.styled}`;
