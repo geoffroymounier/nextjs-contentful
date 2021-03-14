@@ -1,6 +1,4 @@
 import React from 'react';
-
-
 import { Config } from 'utils/Config';
 import { Meta } from 'layout/Meta';
 import Login from 'layout/Login';
