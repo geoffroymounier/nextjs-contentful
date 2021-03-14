@@ -51,9 +51,13 @@ export default {
       of:[
         {type:'button'},
         {type:'menuItem'},
+        {type:'accordion'},
         {type:'textEnriched'},
         {type:'mediaEnriched'}
-      ]
+      ],
+      options: {
+        canDuplicate: 'text'
+      }
     },
     {
       name: 'itemClasses',
