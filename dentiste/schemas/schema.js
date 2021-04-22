@@ -19,6 +19,9 @@ export default createSchema({
     // The following are document types which will appear
     // in the studio.
     schemas.page,
+    schemas.form,
+    schemas.input,
+    schemas.textarea,
     schemas.content,
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas

@@ -5,6 +5,7 @@ import MediaEnriched from './MediaEnriched';
 type ButtonProps = {
   href: string;
   label: string;
+  onClick?: (e?:any) => void;
   media?: any;
   linkType: 'a' | 'button';
   classes?: string;
@@ -21,7 +22,7 @@ position:relative;
 ${props => props.styled}`
 
 const Button: React.FC<ButtonProps> = ({
-  linkType, label, media, href, classes, style
+  linkType, label, media, href, classes, style, onClick
 }) => {
 
   if (linkType === 'a') {
@@ -34,7 +35,7 @@ const Button: React.FC<ButtonProps> = ({
     );
   }
   return (
-    <ButtonWrapper type="button" onClick={() => {}} className={classes} styled={style}>
+    <ButtonWrapper type="button" onClick={() => onClick?.()} className={classes} styled={style}>
       {media?.length ? <MediaEnriched {...(media)[0]}/> : label}
     </ButtonWrapper>
   );

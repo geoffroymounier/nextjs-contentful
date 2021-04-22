@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { get } from 'lodash'
 // import { useWidth } from '../utils/env'
-
+import { ReactSVG } from 'react-svg'
 import { client } from 'utils/Sanity'
 import imageUrlBuilder from '@sanity/image-url'
 import { ContentContext } from 'context/ContentContext';
 
 const builder = imageUrlBuilder(client)
 
-
+const WrappedDiv = styled.div``
 const WrappedImg = styled.img`
 position : ${props => props.isBackground ? 'absolute' : 'initial'};
 top : ${props => props.isBackground ? '0' : 'initial'};
@@ -41,28 +41,37 @@ type MediaEnrichedProps = {
     };
     title: string;
   };
+  title: string;
   classes?: string;
   style?: any;
   isBackground?: boolean;
-  alternative? : string;
+  alternative?: string;
 };
 
 function urlFor(source) {
   return builder.image(source)
 }
 
-const MediaEnriched: React.FC<MediaEnrichedProps> = ({ media : defaultMedia, alternative = '', isBackground, classes, style }) => {
+const MediaEnriched: React.FC<MediaEnrichedProps> = ({ media: defaultMedia, title, alternative = '', isBackground, classes, style }) => {
   const { item } = React.useContext(ContentContext)
-  
-  const alternativeMedia = alternative.replace(/\${([\w\[\]\d\.]+)}/g, (_change,match) => {
-    return JSON.stringify(get(item, match) || "{}")
-    
-  })
-  const media = alternativeMedia ? JSON.parse(alternativeMedia) :  defaultMedia
-  const pictureRef = React.useRef(urlFor(media))
-  // const [viewPortWidth] = useWidth()
-  
 
+  const alternativeMedia = alternative.replace(/\${([\w\[\]\d\.]+)}/g, (_change, match) => {
+    return JSON.stringify(get(item, match) || "{}")
+
+  })
+  const media = alternativeMedia ? JSON.parse(alternativeMedia) : defaultMedia
+  const pictureRef = React.useRef(urlFor(media))
+
+
+  if (/\.svg/.test(pictureRef.current.url().toString() || '')) {
+    return (
+      <ReactSVG  beforeInjection={(svg) => {
+        svg.classList.add(`svg-${title}`)
+        svg.setAttribute('style', style)
+      }} src={pictureRef.current.url()} loading={() => ( <WrappedImg className={classes} styled={style} src={pictureRef.current.url()} />)} />
+    )
+
+  }
   return (
     <picture >
       <source
@@ -83,7 +92,7 @@ const MediaEnriched: React.FC<MediaEnrichedProps> = ({ media : defaultMedia, alt
         src={`${pictureRef.current.width(600)}`}
       />
     </picture>
-  
+
   )
 };
 

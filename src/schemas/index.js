@@ -7,6 +7,9 @@ import mediaEnriched from './mediaEnriched'
 import button from './button'
 import blog from './blog'
 import blogItem from './blogItem'
+import form from './form'
+import input from './input'
+import textarea from './textarea'
 import menu from './menu'
 import menuItem from './menuItem'
 import accordion from './accordion'
@@ -24,6 +27,9 @@ export default {
   menuItem,
   menu,
   accordion,
-  banner
+  banner,
+  form,
+  input,
+  textarea
 
 }

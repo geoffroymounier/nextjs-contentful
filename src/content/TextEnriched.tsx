@@ -13,7 +13,11 @@ const WrappedMediaEnriched = (props) => {
 
 const TextEnriched = ({classes,style,content}) => {
   const { item } = React.useContext(ContentContext)
+  const externalLink = ({mark,children}) => {
 
+    return (
+    <a href={mark.href} target={'_blank'} className={mark.className}>{children}</a>
+  )}
   const replaceText = props => (
       <>
         {props.children[0].replace(/\${(\w+)}/g, (_change,match) => item[match])}
@@ -25,7 +29,7 @@ const TextEnriched = ({classes,style,content}) => {
     <BlockContent
         blocks={content}
         serializers={{
-          marks: {replace: replaceText },
+          marks: {replace: replaceText, externalLink: externalLink },
           types: {mediaEnriched: WrappedMediaEnriched}
         }}
         imageOptions={{ w: 320, h: 240, fit: 'max' }}

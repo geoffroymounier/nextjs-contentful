@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const Content = dynamic(() => import('../content/Content'));
 const Navbar = dynamic(() => import('../navigation/Navbar'));
 const Banner = dynamic(() => import('./Banner'));
+const Form = dynamic(() => import('../content/Form'));
 const Blog = dynamic(() => import('./Blog'));
 
 
@@ -12,10 +13,13 @@ enum Blocks {
   CONTENT = 'content',
   BANNER = 'banner',
   MENU = 'menu',
-  BLOG = 'blog'
+  BLOG = 'blog',
+  FORM = 'form'
+
 }
 
 const validBlocks = {
+  [Blocks.FORM]: Form,
   [Blocks.CONTENT]: Content,
   [Blocks.MENU]: Navbar,
   [Blocks.BANNER]: Content,

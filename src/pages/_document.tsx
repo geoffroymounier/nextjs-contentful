@@ -36,11 +36,11 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          {process.env.NODE_ENV !== 'production' && <script
+          {/* {process.env.NODE_ENV !== 'production' && <script
             dangerouslySetInnerHTML={{
               __html: 'window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}',
             }}
-          />}
+          />} */}
         </Head>
 
         <body>
