@@ -22,15 +22,19 @@ export default {
       type: 'string', 
     },
     {
-      name: 'type',
-      title: 'Input Type',
-      type: 'string', 
-    },
-   
-    {
       name: 'required',
       title: 'Required',
       type: 'boolean'
+    },
+    {
+      name: 'regex',
+      title: 'Regex',
+      type: 'string'
+    },
+    {
+      name: 'errorMsg',
+      title: 'Error Message',
+      type: 'string'
     },
     {
       name: 'classes',

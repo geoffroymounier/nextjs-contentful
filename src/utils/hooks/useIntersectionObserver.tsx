@@ -6,7 +6,7 @@ import { isBrowser } from "utils/env"
 
 export const useIntersectionObserver = (
   ref: React.RefObject<any>,
-  { threshold, root, rootMargin }: { threshold: number, root?: Element | Document, rootMargin?: string }
+  { threshold, root, rootMargin }: { threshold: number, root?: Element, rootMargin?: string }
 ) => {
   // configure the state
   const [state, setState] = React.useState({

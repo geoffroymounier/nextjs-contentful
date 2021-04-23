@@ -1,11 +1,13 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import styled from 'styled-components'
 import BlockContent from '@sanity/block-content-to-react'
 import {client} from 'utils/Sanity'
 import { ContentContext } from 'context/ContentContext';
-import MediaEnriched from './MediaEnriched';
-const WrappedDiv = styled.div`${props => props.styled}`
 
+const MediaEnriched = dynamic(() => import('./MediaEnriched'));
+
+const WrappedDiv = styled.div`${props => props.styled}`
 
 const WrappedMediaEnriched = (props) => {
   return <MediaEnriched {...props.node} />

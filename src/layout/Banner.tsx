@@ -1,7 +1,9 @@
+import dynamic from 'next/dynamic';
 import React, { useState, useRef, useEffect } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import styled from "styled-components";
-import Content from '../content/Content';
+
+const Content = dynamic(() => import('content/Content'));
 
 const WrappedTransition = styled.div`${props => props.styled}`
 const WrappedBanner = styled.div`${props => props.styled}`

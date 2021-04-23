@@ -1,10 +1,13 @@
 import React from 'react'
 import BlockContent from '@sanity/block-content-to-react'
 import styled from 'styled-components';
-import BlogList from './BlogList'
 import {client, internalLink} from 'utils/Sanity'
 import { ContentContext } from '../context/ContentContext'
-import MediaEnriched from 'content/MediaEnriched';
+
+import dynamic from 'next/dynamic';
+
+const MediaEnriched = dynamic(() => import('content/MediaEnriched'));
+const BlogList = dynamic(() => import('./BlogList'));
 
 const WrappedDiv = styled.div`
 position : ${props => props.hasBackground ? 'relative' : 'initial'};

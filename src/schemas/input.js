@@ -32,6 +32,16 @@ export default {
       type: 'string'
     },
     {
+      name: 'regex',
+      title: 'Regex',
+      type: 'string'
+    },
+    {
+      name: 'errorMsg',
+      title: 'Error Message',
+      type: 'string'
+    },
+    {
       name: 'classes',
       title: 'Additional Classes',
       type: 'text',
