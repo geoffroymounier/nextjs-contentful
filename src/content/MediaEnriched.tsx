@@ -66,7 +66,7 @@ const MediaEnriched: React.FC<MediaEnrichedProps> = ({ media: defaultMedia, titl
   if (/\.svg/.test(pictureRef.current.url().toString() || '')) {
     return (
       <ReactSVG  beforeInjection={(svg) => {
-        svg.classList.add(`svg-${title}`)
+        svg.classList.add(`svg-${title.replace(/\s/g,'-')}`)
         svg.setAttribute('style', style)
       }} src={pictureRef.current.url()} loading={() => ( <WrappedImg className={classes} styled={style} src={pictureRef.current.url()} />)} />
     )
