@@ -14,6 +14,7 @@ export type PageProps = {
 const Index = (props: any) => (
   <Main
     header={props.page.header}
+    footer={props.page.footer}
     banner={props.page.banner}
     meta={(
       <Meta

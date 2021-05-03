@@ -37,6 +37,7 @@ const Page = (props: any) => {
     <Main
       header={header.current}
       banner={props.page.banner}
+      footer={props.page.footer}
       meta={(
         <Meta
           title="Made with Next.js, TypeScript, ESLint, Prettier, PostCSS, Tailwind CSS"

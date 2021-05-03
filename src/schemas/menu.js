@@ -23,13 +23,19 @@ export default {
       name: 'mobile',
       title: 'Mobile Menu',
       type: 'array',
-      of:[{type:'menuItem'}]
+      of:[{type:'menuItem'}],
+      options: {
+        canDuplicate: 'text'
+      }
     },
     {
       name: 'desktop',
       title: 'Desktop Menu',
       type: 'array',
-      of:[{type:'menuItem'}]
+      of:[{type:'menuItem'}],
+      options: {
+        canDuplicate: 'text'
+      }
     },
     {
       name: 'classes',

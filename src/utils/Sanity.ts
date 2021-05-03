@@ -15,7 +15,7 @@ export const client = sanityClient({
 
 const listenToChanges =  async (href?: string) => {
   const params = {href}
-  const query = '*[_type == "page" && href.current == $href] { ..., header->, banner->}'
+  const query = '*[_type == "page" && href.current == $href] { ..., header->, footer->, banner->}'
  
   client.listen(query, params).subscribe()
 }
@@ -28,7 +28,7 @@ const internalLink = async (id) => {
 
 const fetchPagesFromSanity = async (href?: string) => {
   const params = {href}
-  const query =  `*[_type == "page"${!!href ? " && href.current == $href" : ""}] { ..., header->, banner->}` 
+  const query =  `*[_type == "page"${!!href ? " && href.current == $href" : ""}] { ..., header->, footer->,  banner->}` 
   // const query = '*[_type == "page" && href.current == $href] { ..., header->}'
   if (href) {
     return await client.fetch(query,params)
@@ -38,7 +38,7 @@ const fetchPagesFromSanity = async (href?: string) => {
 
 const fetchBlogsFromSanity = async (href?: string) => {
   const params = {href}
-  const query =  `*[_type == "blogItem"${!!href ? " && href.current == $href" : ""}] { ..., header->, banner->}` 
+  const query =  `*[_type == "blogItem"${!!href ? " && href.current == $href" : ""}] { ..., header->, footer->,  banner->}` 
   if (href) {
     return await client.fetch(query,params)
   }

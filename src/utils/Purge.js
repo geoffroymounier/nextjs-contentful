@@ -20,7 +20,7 @@ const flattenObject = (item,json={}) => {
         return [...acc,...flattenObject(item[key])]
       }
       return acc
-    },[])
+    },['absolute z-10','transition-all inset-x-0 fixed bg-gray-500'])
   }
   
 }
