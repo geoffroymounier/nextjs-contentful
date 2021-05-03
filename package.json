@@ -24,6 +24,7 @@
     "fs": "^0.0.1-security",
     "jsoneditor": "9.1.9",
     "jsoneditor-react": "3.1.0",
+    "mailgun-js":"0.22.0",
     "magic-sdk": "^4.0.2",
     "next": "^10.0.3",
     "next-sanity-image": "1.0.1",
