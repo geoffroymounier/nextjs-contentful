@@ -58,6 +58,7 @@ export default {
     },
    
   ],
+  validation: false,
   preview: {
     select: {
       title: 'title',

@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import classnames from 'classnames';
-import Content from './Content';
-import MediaEnriched from './MediaEnriched';
-import TextEnriched from './TextEnriched';
+import dynamic from 'next/dynamic';
+
+const MediaEnriched = dynamic(() => import('./MediaEnriched'));
+const Content = dynamic(() => import('./Content'));
+const TextEnriched = dynamic(() => import('./TextEnriched'));
 
 type AccordionProps = {
   header: any;

@@ -1,10 +1,13 @@
 import React from 'react'
 import BlockContent from '@sanity/block-content-to-react'
 import styled from 'styled-components';
-import BlogList from './BlogList'
-import {client, internalLink} from 'utils/Sanity'
+import { client, internalLink } from 'utils/Sanity'
 import { ContentContext } from '../context/ContentContext'
-import MediaEnriched from 'content/MediaEnriched';
+
+import dynamic from 'next/dynamic';
+
+const MediaEnriched = dynamic(() => import('content/MediaEnriched'));
+const BlogList = dynamic(() => import('./BlogList'));
 
 const WrappedDiv = styled.div`
 position : ${props => props.hasBackground ? 'relative' : 'initial'};
@@ -14,48 +17,53 @@ const WrappedMediaEnriched = (props) => {
   return <MediaEnriched {...props.node} />
 }
 
-const serializers = {
-  marks: {
-    internalLink: ({mark, children}) => {
-      const [href, setHref] = React.useState(null)
-      React.useEffect(()=>{
-        const getLink = async () => {
-          const {_ref} = mark.reference
-          const page = await internalLink(_ref)
-          if (page.length) {
-            const {_type, href} = page[0]
-            const prefix = _type === 'page' ? '' : _type === 'blogItem' ? `blog/` : `${_type}/`
-            const previewPrefix =  /\/preview\//.test(window.location.href) ? `preview/` : ``
-            setHref(`/${previewPrefix}${prefix}${href.current}`)
+const Blog = (props) => {
+  const { item } = React.useContext(ContentContext)
+  const { content, classes: innerClass, style: innerStyle } = item
+  const serializers = {
+    marks: {
+      internalLink: ({ mark, children }) => {
+        const [href, setHref] = React.useState(null)
+        React.useEffect(() => {
+          const getLink = async () => {
+            const _ref = mark?.reference?._ref
+            try {
+              const page = await internalLink(_ref)
+              if (page.length) {
+                const { _type, href } = page[0]
+                const prefix = _type === 'page' ? '' : _type === 'blogItem' ? `blog/` : `${_type}/`
+                const previewPrefix = /\/preview\//.test(window.location.href) ? `preview/` : ``
+                setHref(`/${previewPrefix}${prefix}${href.current}`)
+              }
+            } catch (e) {
+              console.warn(e)
+            }
+           
           }
-        }
-        getLink()
-      })
-      
-      return  href ? <a href={href}>{children}</a> : <>{children}</>
+          getLink()
+        })
 
-    },
-    externalLink: ({mark, children}) => {
-      const { blank, href } = mark
-      return blank ?
-        <a href={href} target="_blank" rel="noopener">{children}</a>
-        : <a href={href}>{children}</a>
-    },
-    replaceText:  props => {
-      return (
-        <>
-          {props.children[0].replace(/\${(\w+)}/,"$1")}
-        </>
-      )
+        return href ? <a href={href}>{children}</a> : <>{children}</>
+
+      },
+      externalLink: ({ mark, children }) => {
+        const { blank, href } = mark
+        return blank ?
+          <a href={href} target="_blank" rel="noopener">{children}</a>
+          : <a href={href}>{children}</a>
+      },
+      replaceText: props => {
+        return (
+          <>
+            {props.children[0].replace(/\${(\w+)}/g, (_change, match) => item[match] || '')}
+          </>
+        )
+      }
     }
   }
-}
-const Blog = (props) => {
-  const { item: { content, classes: innerClass, style: innerStyle } } = React.useContext(ContentContext)
-
   if (props.nbArticles > 1) {
     return (
-      <BlogList {...props}/>
+      <BlogList {...props} />
     )
   }
   return (
@@ -63,7 +71,7 @@ const Blog = (props) => {
       <BlockContent
         blocks={content}
         serializers={{
-          types: {mediaEnriched: WrappedMediaEnriched},
+          types: { mediaEnriched: WrappedMediaEnriched },
           ...serializers
         }}
         {...client.config()}

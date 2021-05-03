@@ -1,11 +1,13 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import styled from 'styled-components'
 import BlockContent from '@sanity/block-content-to-react'
 import {client} from 'utils/Sanity'
 import { ContentContext } from 'context/ContentContext';
-import MediaEnriched from './MediaEnriched';
-const WrappedDiv = styled.div`${props => props.styled}`
 
+const MediaEnriched = dynamic(() => import('./MediaEnriched'));
+
+const WrappedDiv = styled.div`${props => props.styled}`
 
 const WrappedMediaEnriched = (props) => {
   return <MediaEnriched {...props.node} />
@@ -13,10 +15,14 @@ const WrappedMediaEnriched = (props) => {
 
 const TextEnriched = ({classes,style,content}) => {
   const { item } = React.useContext(ContentContext)
+  const externalLink = ({mark,children}) => {
 
+    return (
+    <a href={mark.href} target={'_blank'} className={mark.className}>{children}</a>
+  )}
   const replaceText = props => (
       <>
-        {props.children[0].replace(/\${(\w+)}/g, (_change,match) => item[match])}
+        {props.children[0].replace(/\${(\w+)}/g, (_change,match) => item[match] || '')}
       </>
     )
   
@@ -25,7 +31,7 @@ const TextEnriched = ({classes,style,content}) => {
     <BlockContent
         blocks={content}
         serializers={{
-          marks: {replace: replaceText },
+          marks: {replace: replaceText, externalLink: externalLink },
           types: {mediaEnriched: WrappedMediaEnriched}
         }}
         imageOptions={{ w: 320, h: 240, fit: 'max' }}

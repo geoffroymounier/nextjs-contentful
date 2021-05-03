@@ -20,7 +20,7 @@ const flattenObject = (item,json={}) => {
         return [...acc,...flattenObject(item[key])]
       }
       return acc
-    },[])
+    },['absolute z-10','transition-all inset-x-0 fixed bg-gray-500'])
   }
   
 }
@@ -32,7 +32,7 @@ const flattenObject = (item,json={}) => {
     useCdn: true // `false` if you want to ensure fresh data
   })
   
-  const query =  `*[_type == 'page'] { ..., header->}` 
+  const query =  `*[_type == 'page'] { ..., header->, banner->}` 
   const items = await client.fetch(query)
 
   const classArray = [...new Set(flattenObject(items))]

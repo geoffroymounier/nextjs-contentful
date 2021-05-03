@@ -16,7 +16,7 @@ export default {
       name: 'items',
       title: 'Items',
       type: 'array',
-      of: [{ type: 'textEnriched' }, { type: 'content' }, { type: 'mediaEnriched' },  { type: 'accordion' }, { type: 'button' }],
+      of: [{ type: 'textEnriched' }, { type: 'content' }, { type: 'mediaEnriched' },  { type: 'accordion' }, { type: 'button' }, { type: 'form' },],
       options: {
         canDuplicate: 'text'
       }

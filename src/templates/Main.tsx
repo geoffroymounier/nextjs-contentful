@@ -6,12 +6,14 @@ type IMainProps = {
   meta: React.ReactNode;
   banner?: React.ReactNode;
   children: React.ReactNode;
-  header?: any
+  header?: any;
+  footer?: any;
 };
 
 const Main = (props: IMainProps) => {
   const [{ sticky, offset },setSticky] = React.useState({ sticky: false, offset: 0 })
   const menuHeight = React.useRef<HTMLDivElement>()
+  const footerRef = React.useRef<HTMLDivElement>()
   React.useEffect(()=>{
     const handleScroll = (elTopOffset, elHeight) => {
 
@@ -46,12 +48,8 @@ const Main = (props: IMainProps) => {
 
         {props.children}
 
-        <div className="border-t border-gray-300 text-center py-8">
-          Made with
-        {' '}
-          <span role="img" aria-label="Love">
-            ♥
-        </span>
+        <div>
+        {props.footer &&<Navbar ref={footerRef} {...props.footer} /> } 
         </div>
       </div>
     </div>
