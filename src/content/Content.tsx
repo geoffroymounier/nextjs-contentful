@@ -41,12 +41,14 @@ const validItems = {
 
 function Content({ items, background, classes, style }: ContentProps) {
   const elementRef = React.useRef(null);
-  const [inView, entry] = useIntersectionObserver(elementRef, {
-    threshold: 0.2,
-    rootMargin: "100px 0px 0px 0px"
-  });
+  // const [inView, entry] = useIntersectionObserver(elementRef, {
+  //   threshold: 0.2,
+  //   rootMargin: "100px 0px 0px 0px"
+
+  // });
+//, { 'entry': entry, 'view': inView }
   return (
-    <WrappedDiv  ref={elementRef} className={cn(classes, { 'entry': entry, 'view': inView })} styled={style} hasBackground={!!background?.length}>
+    <WrappedDiv  ref={elementRef} className={cn(classes)} styled={style} hasBackground={!!background?.length}>
       {background?.length ? <MediaEnriched {...background[0]} isBackground/> : null}
       {items ? items.map((item, id) => {
         const { _type } = item;
