@@ -9,60 +9,61 @@ import { client, fetchBlogsFromSanity, fetchPagesFromSanity } from 'utils/Sanity
 import { useDebounceCallback } from 'utils/hooks/useDebounce';
 
 export type PageProps = {
-  page: Record<string,any>;
-  item: Record<string,any>;
+  page: Record<string, any>;
+  item: Record<string, any>;
 };
-
 
 const Blog = (props: any) => {
   // const [_change, setChange] = React.useState(0)
-  const content = React.useRef(props.page.content)
-  const article = React.useRef(props.item)
-  const header = React.useRef(props.page.header)
+  const content = React.useRef(props.page.content);
+  const article = React.useRef(props.item);
+  const header = React.useRef(props.page.header);
 
   const updateContent = (update) => {
-    article.current = update.result
-      // setChange(change => change + 1)
-  }
-  const [debounceUpdateContent] = useDebounceCallback(updateContent,2000)
-  
+    article.current = update.result;
+    // setChange(change => change + 1)
+  };
+  const [debounceUpdateContent] = useDebounceCallback(updateContent, 2000);
 
   React.useEffect(() => {
-    const query = '*[_type == "blogItem" && href.current == $href] { ..., header->}'
-    const params = {href:props.item.href.current}
+    const query = '*[_type == "blogItem" && href.current == $href] { ..., header->}';
+    const params = { href: props.item.href.current };
 
-    const subscription = client.listen(query, params).subscribe(debounceUpdateContent)
+    const subscription = client.listen(query, params).subscribe(debounceUpdateContent);
     return () => {
-      subscription.unsubscribe()
-    }
-  },[])
+      subscription.unsubscribe();
+    };
+  }, []);
 
   return (
     <ContentContext.Provider value={{ item: article.current }}>
       <Main
         header={header.current}
         banner={props.page.banner}
-        meta={(
+        meta={
           <Meta
-            title="Made with Next.js, TypeScript, ESLint, Prettier, PostCSS, Tailwind CSS"
-            description={Config.description}
+            title={`Nego-Plus | Articles | ${props.page.title ?? ''}`}
+            description={props.page.description}
           />
-        )}
+        }
       >
-        <PageContent  classes={props.page.classes} style={props.page.style}   blocks={content.current} />
+        <PageContent
+          classes={props.page.classes}
+          style={props.page.style}
+          blocks={content.current}
+        />
       </Main>
     </ContentContext.Provider>
-  )
+  );
 };
 
 Blog.getInitialProps = async ({ query }) => {
   const blog = (await fetchBlogsFromSanity(query!.id))[0];
   const frame = (await fetchPagesFromSanity('blog'))[0];
-
   return {
-      page: frame,
-      item: blog
-    }
-}
+    page: frame,
+    item: blog,
+  };
+};
 
 export default Blog;

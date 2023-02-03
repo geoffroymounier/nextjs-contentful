@@ -1,4 +1,4 @@
-import {MdLocalMovies as icon} from 'react-icons/md'
+import { MdLocalMovies as icon } from 'react-icons/md';
 
 export default {
   name: 'page',
@@ -8,6 +8,11 @@ export default {
     {
       name: 'title',
       title: 'Title',
+      type: 'string',
+    },
+    {
+      name: 'description',
+      title: 'Description',
       type: 'string',
     },
     {
@@ -23,28 +28,28 @@ export default {
       name: 'banner',
       title: 'Banner',
       type: 'reference',
-      to:[{type:'banner'}],
+      to: [{ type: 'banner' }],
     },
     {
       name: 'header',
       title: 'Header',
       type: 'reference',
-      to:[{type:'menu'}],
+      to: [{ type: 'menu' }],
     },
     {
       name: 'footer',
       title: 'Footer',
       type: 'reference',
-      to:[{type:'menu'}],
+      to: [{ type: 'menu' }],
     },
     {
       name: 'content',
       title: 'Blocks',
       type: 'array',
-      of:[{type:'content'},{type:'blog'}],
+      of: [{ type: 'content' }, { type: 'blog' }],
       options: {
-        canDuplicate: 'text'
-      }
+        canDuplicate: 'text',
+      },
     },
     {
       name: 'classes',
@@ -56,7 +61,6 @@ export default {
       title: 'Additional Style',
       type: 'text',
     },
-   
   ],
   validation: false,
   preview: {
@@ -64,14 +68,12 @@ export default {
       title: 'title',
     },
     prepare(selection) {
-      const year = selection.date && selection.date.split('-')[0]
-     
+      const year = selection.date && selection.date.split('-')[0];
 
       return {
         title: `${selection.title} ${year ? `(${year})` : ''}`,
         date: selection.date,
-      
-      }
+      };
     },
   },
-}
+};
