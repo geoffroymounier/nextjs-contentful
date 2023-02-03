@@ -1,14 +1,13 @@
 import React from 'react';
 import { GetStaticProps } from 'next';
-import { Config } from 'utils/Config';
+
 import { Meta } from 'layout/Meta';
 import PageContent from 'layout/PageContent';
 import Main from 'templates/Main';
 import { fetchPagesFromSanity } from 'utils/Sanity';
 
-
 export type PageProps = {
-  page: Record<string,any>;
+  page: Record<string, any>;
 };
 
 const Index = (props: any) => (
@@ -16,27 +15,24 @@ const Index = (props: any) => (
     header={props.page.header}
     footer={props.page.footer}
     banner={props.page.banner}
-    meta={(
-      <Meta
-        title="Made with Next.js, TypeScript, ESLint, Prettier, PostCSS, Tailwind CSS"
-        description={Config.description}
-      />
-    )}
+    meta={<Meta title={`Nego-Plus`} description={props.page.description} />}
   >
-    <PageContent  classes={props.page.classes} style={props.page.style}   blocks={props.page.content} />
+    <PageContent
+      classes={props.page.classes}
+      style={props.page.style}
+      blocks={props.page.content}
+    />
   </Main>
 );
 
 export const getStaticProps: GetStaticProps<PageProps> = async () => {
-  const page = (await fetchPagesFromSanity('index'))[0]
+  const page = (await fetchPagesFromSanity('index'))[0];
 
-  
   return {
-    props: { 
-      page
-    }
-  }
-
+    props: {
+      page,
+    },
+  };
 };
 
 export default Index;

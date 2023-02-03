@@ -4,13 +4,13 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { Meta } from '../../layout/Meta';
 import Main from '../../templates/Main';
 import PageContent from '../../layout/PageContent';
-import { Config } from '../../utils/Config';
+
 import { ContentContext } from '../../context/ContentContext';
 import { fetchBlogsFromSanity, fetchPagesFromSanity } from 'utils/Sanity';
 
 export type PageProps = {
-  page: Record<string,any>;
-  item: Record<string,any>;
+  page: Record<string, any>;
+  item: Record<string, any>;
 };
 
 type IPageUrl = {
@@ -18,29 +18,33 @@ type IPageUrl = {
 };
 
 const Blog = (props: any) => (
-  <ContentContext.Provider value={{item:props.item}}>
-  <Main
-    header={props.page.header}
-    banner={props.page.banner}
-    footer={props.page.footer}
-    meta={(
-      <Meta
-        title="Made with Next.js, TypeScript, ESLint, Prettier, PostCSS, Tailwind CSS"
-        description={Config.description}
+  <ContentContext.Provider value={{ item: props.item }}>
+    <Main
+      header={props.page.header}
+      banner={props.page.banner}
+      footer={props.page.footer}
+      meta={
+        <Meta
+          title={`Nego-Plus | Articles | ${props.page.title ?? ''}`}
+          description={props.page.description}
+        />
+      }
+    >
+      <PageContent
+        classes={props.page.classes}
+        style={props.page.style}
+        blocks={props.page.content}
       />
-    )}
-  >
-    <PageContent  classes={props.page.classes} style={props.page.style}   blocks={props.page.content} />
-  </Main>
+    </Main>
   </ContentContext.Provider>
 );
 export const getStaticPaths: GetStaticPaths<IPageUrl> = async () => {
   const blogItems = await fetchBlogsFromSanity();
 
   return {
-    paths: blogItems.map(({href}) => ({
+    paths: blogItems.map(({ href }) => ({
       params: {
-        id: href.current
+        id: href.current,
       },
     })),
     fallback: false,
@@ -54,7 +58,7 @@ export const getStaticProps: GetStaticProps<PageProps, IPageUrl> = async ({ para
   return {
     props: {
       page: frame,
-      item: blog
+      item: blog,
     },
   };
 };

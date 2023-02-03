@@ -1,11 +1,12 @@
 import React from 'react';
 import Head from 'next/head';
-import { Config } from '../utils/Config';
+import { Config as ConfigRaw } from '../utils/Config';
 
 type IMetaProps = {
   title: string;
   description: string;
   canonical?: string;
+  config?: Record<string, string>;
   post?: {
     image: string;
     date: string;
@@ -14,6 +15,12 @@ type IMetaProps = {
 };
 
 const Meta = (props: IMetaProps) => {
+  const Config = {
+    ...ConfigRaw,
+    ...(props.config || {}),
+    title: props.title,
+    description: props.description,
+  };
   return (
     <>
       <Head>
