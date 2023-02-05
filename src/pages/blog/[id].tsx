@@ -6,11 +6,23 @@ import Main from '../../templates/Main';
 import PageContent from '../../layout/PageContent';
 
 import { ContentContext } from '../../context/ContentContext';
-import { client, fetchBlogsFromSanity, fetchPagesFromSanity } from 'utils/Sanity';
+import {
+  client,
+  fetchBlogsFromSanity,
+  fetchMetadataFromSanity,
+  fetchPagesFromSanity,
+} from 'utils/Sanity';
 
 export type PageProps = {
   page: Record<string, any>;
   item: Record<string, any>;
+  metadata: {
+    site_title?: string;
+    site_description?: string;
+    site_url?: string;
+    site_locale?: string;
+    site_icon?: string;
+  };
 };
 
 type IPageUrl = {
@@ -49,8 +61,10 @@ const Blog = (props: any) => {
         banner={props.page.banner}
         meta={
           <Meta
-            title={`Nego-Plus | Articles | ${props.page.title ?? ''}`}
+            config={props.metadata}
+            title={`${props.item.title ?? ''}`}
             description={props.page.description}
+            href={`/blog${props.item.href.current}`}
           />
         }
       >
@@ -79,11 +93,13 @@ export const getStaticPaths: GetStaticPaths<IPageUrl> = async () => {
 export const getStaticProps: GetStaticProps<PageProps, IPageUrl> = async ({ params }) => {
   const blog = (await fetchBlogsFromSanity(params!.id))[0];
   const frame = (await fetchPagesFromSanity('blog'))[0];
+  const metadata = await fetchMetadataFromSanity();
 
   return {
     props: {
       page: frame,
       item: blog,
+      metadata,
     },
   };
 };

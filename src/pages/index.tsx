@@ -4,10 +4,17 @@ import { GetStaticProps } from 'next';
 import { Meta } from 'layout/Meta';
 import PageContent from 'layout/PageContent';
 import Main from 'templates/Main';
-import { client, fetchPagesFromSanity } from 'utils/Sanity';
+import { client, fetchMetadataFromSanity, fetchPagesFromSanity } from 'utils/Sanity';
 
 export type PageProps = {
   page: Record<string, any>;
+  metadata: {
+    site_title?: string;
+    site_description?: string;
+    site_url?: string;
+    site_locale?: string;
+    site_icon?: string;
+  };
 };
 
 const Index = (props: any) => {
@@ -49,7 +56,7 @@ const Index = (props: any) => {
       header={header.current}
       banner={props.page.banner}
       footer={props.page.footer}
-      meta={<Meta title={`Nego-Plus | Articles | ${title ?? ''}`} description={description} />}
+      meta={<Meta config={props.metadata} title={`Accueil`} description={description} href={''} />}
     >
       <PageContent classes={classes} style={style} blocks={content} />
     </Main>
@@ -58,9 +65,10 @@ const Index = (props: any) => {
 
 export const getStaticProps: GetStaticProps<PageProps> = async () => {
   const page = (await fetchPagesFromSanity('index'))[0];
-
+  const metadata = await fetchMetadataFromSanity();
   return {
     props: {
+      metadata,
       page,
     },
   };
