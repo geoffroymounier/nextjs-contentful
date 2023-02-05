@@ -4,10 +4,17 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { Meta } from 'layout/Meta';
 import Main from 'templates/Main';
 import PageContent from 'layout/PageContent';
-import { client, fetchPagesFromSanity } from 'utils/Sanity';
+import { client, fetchPagesFromSanity, fetchMetadataFromSanity } from 'utils/Sanity';
 
 export type PageProps = {
   page: Record<string, any>;
+  metadata: {
+    site_title?: string;
+    site_description?: string;
+    site_url?: string;
+    site_locale?: string;
+    site_icon?: string;
+  };
 };
 
 type IPageUrl = {
@@ -50,7 +57,14 @@ const Page = (props: any) => {
       header={props.page.header}
       banner={props.page.banner}
       footer={props.page.footer}
-      meta={<Meta title={`Nego-Plus | ${title ?? ''}`} description={description} />}
+      meta={
+        <Meta
+          config={props.metadata}
+          title={`${title ?? ''}`}
+          href={props.page.href.current}
+          description={description}
+        />
+      }
     >
       <PageContent classes={classes} style={style} blocks={content} />
     </Main>
@@ -73,9 +87,10 @@ export const getStaticPaths: GetStaticPaths<IPageUrl> = async () => {
 
 export const getStaticProps: GetStaticProps<PageProps, IPageUrl> = async ({ params }) => {
   const page = (await fetchPagesFromSanity(params!.page || 'index'))[0];
-
+  const metadata = await fetchMetadataFromSanity();
   return {
     props: {
+      metadata,
       page,
     },
   };
